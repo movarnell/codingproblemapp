@@ -1,29 +1,53 @@
-function OptionsForm() {
-    
+import GenerateProblem from "./GenerateProblem";
+
+function OptionsForm({
+  setCategory,
+  setDifficulty,
+  setLanguage,
+  setProblem,
+  difficulty,
+  category,
+  language,
+  previousProblems,
+  setPreviousProblems,
+}) {
+
+
   // Menu providing dropdown options to choose: Language, Difficulty, Category
   return (
-    <form className="p-5 text-base mx-auto grid grid-cols-4">
-      <div className="text-center flex justify-center items-center">
+    <form className="p-5 text-base mx-auto grid sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-4 grid-flow-row-dense">
+      {" "}
+      <div className="text-center flex justify-center items-center mb-1">
         <label className="font-bold">Language: </label>
-        <select name="language" className="text-sm rounded-lg py-1 ">
+        <select
+          name="language"
+          className="text-sm rounded-lg py-1"
+          onChange={(e) => setLanguage(e.target.value)}
+        >
           <option value="JavaScript">JavaScript</option>
           <option value="Python">Python</option>
         </select>
       </div>
-
-      <div className="text-center flex justify-center items-center">
+      <div className="text-center flex justify-center items-center mb-1">
         <label className="font-bold">Difficulty: </label>
-        <select name="difficulty" onChange={() => setDifficulty()} className="text-sm rounded-lg py-1  ">
+        <select
+          name="difficulty"
+          onChange={(e) => setDifficulty(e.target.value)}
+          className="text-sm rounded-lg py-1 "
+        >
           <option value="very easy">Very Easy</option>
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
         </select>
       </div>
-
-      <div className="text-center flex justify-center items-center">
+      <div className="text-center flex justify-center items-center mb-1">
         <label className="font-bold">Category: </label>
-        <select name="category" className="text-sm rounded-lg py-1  ">
+        <select
+          name="category"
+          className="text-sm rounded-lg py-1"
+          onChange={(e) => setCategory(e.target.value)}
+        >
           <option value="array">Array</option>
           <option value="string">String</option>
           <option value="math">Math</option>
@@ -34,9 +58,14 @@ function OptionsForm() {
         </select>
       </div>
       <div className="flex justify-center items-center">
-        <button className="bg-gray-500 hover:bg-blue-700 text-white font-bold py-0.5 px-3 rounded">
-          Generate Problem
-        </button>
+        <GenerateProblem
+          difficulty={difficulty}
+          category={category}
+          language={language}
+          setProblem={setProblem}
+          previousProblems={previousProblems}
+          setPreviousProblems={setPreviousProblems}
+        />
       </div>
     </form>
   );

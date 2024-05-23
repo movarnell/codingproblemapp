@@ -1,6 +1,8 @@
 import "./App.css";
 import OptionsForm from "./components/OptionsForm";
+import ProblemInput from "./components/ProblemInput";
 import Title from "./components/Title";
+import { useState } from "react";
 //A few ideas for the app:
 
 // -Basic layout ie. header, footer, body content, grid/flex
@@ -13,13 +15,35 @@ import Title from "./components/Title";
 // -user registration/login
 // -database to store your answer.
 
-
 function App() {
+  const [difficulty, setDifficulty] = useState("very easy");
+  const [category, setCategory] = useState("array");
+  const [language, setLanguage] = useState("JavaScript");
+  const [problem, setProblem] = useState(null);
+  const [userAnswer, setUserAnswer] = useState("");
+  const [previousProblems, setPreviousProblems] = useState([
+            {
+              role: "system",
+              content: `Make a random problem that hasn't been generated in this session previously. Meet the users promp requirements. Do not provide a solution, only the problem and the test cases.`,
+            }]);
+
+  console.log(difficulty, category, language);
+
   return (
     <>
       <div>
         <Title />
-        <OptionsForm />
+        <OptionsForm
+          setCategory={setCategory}
+          setDifficulty={setDifficulty}
+          setLanguage={setLanguage}
+          setProblem={setProblem}
+          difficulty={difficulty}
+          category={category}
+          language={language}
+          previousProblems={previousProblems}
+          setPreviousProblems={setPreviousProblems}
+        />
         <div className="container-fluid mx-3">
           <div className="row grid grid-cols-2 my-5 gap-2">
             <div className="px-3">
@@ -30,6 +54,9 @@ function App() {
               </p>
             </div>
             <div></div>
+          </div>
+          <div className="row">
+            <ProblemInput problem={problem} setUserAnswer={setUserAnswer} />
           </div>
         </div>
       </div>
