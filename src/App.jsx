@@ -2,7 +2,7 @@ import "./App.css";
 import OptionsForm from "./components/OptionsForm";
 import ProblemInput from "./components/ProblemInput";
 import Title from "./components/Title";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 //A few ideas for the app:
 
 // -Basic layout ie. header, footer, body content, grid/flex
@@ -19,8 +19,20 @@ function App() {
   const [difficulty, setDifficulty] = useState("very easy");
   const [category, setCategory] = useState("array");
   const [language, setLanguage] = useState("JavaScript");
-  const [problem, setProblem] = useState(null);
+const [problem, setProblem] = useState(() => {
+  const savedProblem = localStorage.getItem("problem");
+  return savedProblem ? JSON.parse(savedProblem) : null;
+});
+
+  useEffect(() => {
+    // Save the problem to local storage whenever it changes
+    if (problem) {
+      localStorage.setItem("problem", JSON.stringify(problem));
+    }
+  }, [problem]);
+
   const [userAnswer, setUserAnswer] = useState("");
+  const [results, setResults] = useState(null);
   const [previousProblems, setPreviousProblems] = useState([
     {
       role: "system",
@@ -44,9 +56,11 @@ function App() {
           language={language}
           previousProblems={previousProblems}
           setPreviousProblems={setPreviousProblems}
+          setUserAnswer={setUserAnswer}
         />
-        <div className="container-fluid mx-3">
-          <div className="row grid grid-cols-2 my-5 gap-2">
+        <div className="container-fluid flex flex-wrap items-center justify-center">
+          {" "}
+          <div className="row  my-5">
             <div className="px-3">
               <h2 className="text-xl font-bold">How this works</h2>
               <p>
@@ -54,10 +68,15 @@ function App() {
                 "Generate Problem" to get a problem to solve.
               </p>
             </div>
-            <div></div>
-          </div>
-          <div className="row">
-            <ProblemInput problem={problem} setUserAnswer={setUserAnswer} userAnswer={userAnswer} />
+            <div>
+              <ProblemInput
+                problem={problem}
+                setUserAnswer={setUserAnswer}
+                userAnswer={userAnswer}
+                results={results}
+                setResults={setResults}
+              />
+            </div>
           </div>
         </div>
       </div>

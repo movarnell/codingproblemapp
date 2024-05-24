@@ -1,7 +1,7 @@
 import axios from "axios";
 // import { useEffect } from "react";
 
-const GenerateProblem = ({ difficulty, category, language, setProblem, previousProblems, setPreviousProblems}) => {
+const GenerateProblem = ({ difficulty, category, language, setProblem, previousProblems, setPreviousProblems, setResults, setUserAnswer}) => {
   const api_key = import.meta.env.VITE_OPENAI_API_KEY;
 
 
@@ -44,6 +44,8 @@ const GenerateProblem = ({ difficulty, category, language, setProblem, previousP
 
      setPreviousProblems([...previousProblems, newMessage]);
      setProblem(data.choices[0].message.content);
+     setResults(null);
+     setUserAnswer(null);
     } catch (error) {
       console.error("Error executing code:", error);
     }
