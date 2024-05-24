@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 const GenerateProblem = ({ difficulty, category, language, setProblem, previousProblems, setPreviousProblems}) => {
   const api_key = import.meta.env.VITE_OPENAI_API_KEY;
@@ -34,12 +34,16 @@ const GenerateProblem = ({ difficulty, category, language, setProblem, previousP
           },
         }
       );
-      let data = response.data;
-      console.log("Data:", data.choices[0].message.content);
+     let data = response.data;
+     console.log("Data:", data.choices[0].message.content);
 
+     let newMessage = {
+       role: "assistant",
+       content: data.choices[0].message.content,
+     };
 
-      setPreviousProblems([...previousProblems, response.data]);
-      setProblem(data.choices[0].message.content);
+     setPreviousProblems([...previousProblems, newMessage]);
+     setProblem(data.choices[0].message.content);
     } catch (error) {
       console.error("Error executing code:", error);
     }

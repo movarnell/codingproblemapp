@@ -22,10 +22,11 @@ function App() {
   const [problem, setProblem] = useState(null);
   const [userAnswer, setUserAnswer] = useState("");
   const [previousProblems, setPreviousProblems] = useState([
-            {
-              role: "system",
-              content: `Make a random problem that hasn't been generated in this session previously. Meet the users promp requirements. Do not provide a solution, only the problem and the test cases.`,
-            }]);
+    {
+      role: "system",
+      content: `Make a random problem that hasn't been generated in this session previously. Meet the users promp requirements. Do not provide a solution, only the problem and the test cases. JSON format like {"problem": "description", "testCases": ["case1", "case2", "case3"]}`,
+    },
+  ]);
 
   console.log(difficulty, category, language);
 
@@ -56,7 +57,7 @@ function App() {
             <div></div>
           </div>
           <div className="row">
-            <ProblemInput problem={problem} setUserAnswer={setUserAnswer} />
+            <ProblemInput problem={problem} setUserAnswer={setUserAnswer} userAnswer={userAnswer} />
           </div>
         </div>
       </div>
