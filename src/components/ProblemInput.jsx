@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+
 import correct from "../assets/right.svg";
 import wrong from "../assets/wrong.svg";
 
@@ -30,6 +30,7 @@ function ProblemInput({
   });
 
   const testUserAnswer = async (e) => {
+    setResults(null);
     e.preventDefault();
     console.log("User Answer:", userAnswer);
     const prompt =
@@ -37,7 +38,7 @@ function ProblemInput({
       thisProblem.problem +
       " The test cases were " +
       JSON.stringify(testCases) +
-      ". Return in JSON format with an array like [{testCase: 1, testCaseOutput: 'output', testCasepassed: true}, {testCase: 2, testCaseOutput: 'output', testCasepassed: false}, {testCase: 3, testCaseOutput: 'output', testCasepassed: true}]";
+      ". Return in JSON format with an array like [{testCase: 1, testCaseOutput: 'output', testCasePassed: true}, {testCase: 2, testCaseOutput: 'output', testCasePassed: false}, {testCase: 3, testCaseOutput: 'output', testCasePassed: true}]";
 
     let currentPrompt = {
       role: "user",
@@ -68,6 +69,7 @@ function ProblemInput({
       setResults(JSON.parse(data.choices[0].message.content));
     } catch (error) {
       console.error("Error executing code:", error);
+      displayError(error);
     }
   };
 
@@ -76,6 +78,7 @@ function ProblemInput({
       <pre className="whitespace-pre-wrap font-sans mt-5">{thisProblem.problem}</pre>
       <textarea
         className="border-2 border-black rounded-lg p-1 w-5/6 h-52 mt-5"
+        value={userAnswer === null ? "" : userAnswer}
         onChange={(e) => setUserAnswer(e.target.value)}
       />
       <br />
@@ -87,22 +90,23 @@ function ProblemInput({
       </button>
       <br />
       <div className="font-bold">
-        {results != null &&
+        {results &&
           results.map((result, index) => (
-            <div key={index} className="flex items-center text-lg">
-              Test Case {result.testCase}
+            <div key={index} className="flex items-center justify-center text-lg">
+              Test Case {result.testCase}: {" "}
               {thisProblem.testCases[index]} : {result.testCaseOutput}{" "}
               <img
-                src={result.testCasepassed ? correct : wrong}
+                src={result.testCasePassed ? correct : wrong}
                 className="mx-1"
               />
             </div>
           ))}
       </div>
       <pre className="whitespace-pre-wrap font-sans text-lg font-bold">
+        <h3 className="font-bold text-2xl underline">Test Cases:</h3>
         {!results &&
           thisProblem.testCases.map(
-            (testCase, index) => `Test Case ${index + 1}:  ` + testCase + "\n"
+            (testCase, index) => `Case ${index + 1}:  ` + testCase + "\n"
           )}
       </pre>
     </div>

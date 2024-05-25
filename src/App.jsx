@@ -23,15 +23,21 @@ const [problem, setProblem] = useState(() => {
   const savedProblem = localStorage.getItem("problem");
   return savedProblem ? JSON.parse(savedProblem) : null;
 });
+const [userAnswer, setUserAnswer] = useState(() => {
+  const savedUserAnswer = localStorage.getItem("userAnswer");
+  return savedUserAnswer ? savedUserAnswer : null;
+});
 
   useEffect(() => {
     // Save the problem to local storage whenever it changes
     if (problem) {
       localStorage.setItem("problem", JSON.stringify(problem));
     }
-  }, [problem]);
+    if (userAnswer) {
+      localStorage.setItem("userAnswer", userAnswer);
+    }
+  }, [problem, userAnswer]);
 
-  const [userAnswer, setUserAnswer] = useState("");
   const [results, setResults] = useState(null);
   const [previousProblems, setPreviousProblems] = useState([
     {

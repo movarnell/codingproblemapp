@@ -10,6 +10,7 @@ function OptionsForm({
   language,
   previousProblems,
   setPreviousProblems,
+  setResults,
 }) {
 
 
@@ -65,6 +66,7 @@ function OptionsForm({
           setProblem={setProblem}
           previousProblems={previousProblems}
           setPreviousProblems={setPreviousProblems}
+          setResults={setResults}
         />
       </div>
     </form>
