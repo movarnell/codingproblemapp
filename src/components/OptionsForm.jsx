@@ -11,9 +11,8 @@ function OptionsForm({
   previousProblems,
   setPreviousProblems,
   setResults,
+  setUserAnswer,
 }) {
-
-
   // Menu providing dropdown options to choose: Language, Difficulty, Category
   return (
     <form className="p-5 text-base mx-auto grid sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-4 grid-flow-row-dense">
@@ -27,6 +26,30 @@ function OptionsForm({
         >
           <option value="JavaScript">JavaScript</option>
           <option value="Python">Python</option>
+          <option value="Java">Java</option>
+          <option value="C++">C++</option>
+          <option value="C#">C#</option>
+          <option value="Ruby">Ruby</option>
+          <option value="Swift">Swift</option>
+          <option value="Go">Go</option>
+          <option value="Kotlin">Kotlin</option>
+          <option value="Rust">Rust</option>
+          <option value="TypeScript">TypeScript</option>
+          <option value="PHP">PHP</option>
+          <option value="R">R</option>
+          <option value="Scala">Scala</option>
+          <option value="Perl">Perl</option>
+          <option value="Haskell">Haskell</option>
+          <option value="Lua">Lua</option>
+          <option value="Julia">Julia</option>
+          <option value="Dart">Dart</option>
+          <option value="Elixir">Elixir</option>
+          <option value="Clojure">Clojure</option>
+          <option value="F#">F#</option>
+          <option value="Objective-C">Objective-C</option>
+          <option value="Shell">Shell</option>
+          <option value="PowerShell">PowerShell</option>
+          <option value="basic">Basic</option>
         </select>
       </div>
       <div className="text-center flex justify-center items-center mb-1">
@@ -38,8 +61,11 @@ function OptionsForm({
         >
           <option value="very easy">Very Easy</option>
           <option value="easy">Easy</option>
+          <option value="simple">Simple</option>
           <option value="medium">Medium</option>
+          <option value="moderate">Moderate</option>
           <option value="hard">Hard</option>
+          <option value="very hard">Very Hard</option>
         </select>
       </div>
       <div className="text-center flex justify-center items-center mb-1">
@@ -49,13 +75,16 @@ function OptionsForm({
           className="text-sm rounded-lg py-1"
           onChange={(e) => setCategory(e.target.value)}
         >
-          <option value="array">Array</option>
-          <option value="string">String</option>
-          <option value="math">Math</option>
+          <option value="random">RANDOM</option>
+          <option value="arrays">Arrays</option>
+          <option value="strings">Strings</option>
           <option value="loops">Loops</option>
           <option value="functions">Functions</option>
           <option value="objects">Objects</option>
-          <option value="random">RANDOM</option>
+          <option value="math">Math</option>
+          <option value="recursion">Recursion</option>
+          <option value="sorting">Sorting</option>
+          
         </select>
       </div>
       <div className="flex justify-center items-center">
@@ -67,6 +96,7 @@ function OptionsForm({
           previousProblems={previousProblems}
           setPreviousProblems={setPreviousProblems}
           setResults={setResults}
+          setUserAnswer={setUserAnswer}
         />
       </div>
     </form>

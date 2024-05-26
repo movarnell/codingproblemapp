@@ -1,7 +1,10 @@
 import axios from "axios";
-
+import hljs from "highlight.js";
+import "highlight.js/styles/atom-one-dark.css";
+import React, { useRef, useEffect } from "react";
 import correct from "../assets/right.svg";
 import wrong from "../assets/wrong.svg";
+import DOMPurify from "dompurify";
 
 //INFO This is ready to test!!!
 
@@ -12,61 +15,69 @@ function ProblemInput({
   results,
   setResults,
 }) {
-  console.log(problem);
-  if (!problem) {
-    return (
-      <div>
-        Awaiting your selections above, when you decide what type of problem you
-        would like click the generate problem button...
-      </div>
-    );
+  const codeRef = useRef(null);
+useEffect(() => {
+  const highlightCode = (block) => {
+    if (block.dataset.highlighted) {
+      delete block.dataset.highlighted;
+    }
+    const sanitizedInput = DOMPurify.sanitize(block.textContent);
+    block.textContent = sanitizedInput;
+    hljs.highlightElement(block);
+  };
+
+  // Apply syntax highlighting to all code elements
+  document.querySelectorAll("pre code").forEach(highlightCode);
+
+  // Apply syntax highlighting to the specific code element referenced by codeRef
+  if (codeRef.current) {
+    highlightCode(codeRef.current);
   }
+}, [userAnswer]);
+
+//FIXME Unused code from attempt to make the code in the input update in real time
+//  const handleInputChange = (e) => {
+//    const rawCode = e.target.value;
+//    const highlightedCode = hljs.highlightAuto(rawCode).value;
+//    setUserAnswer(highlightedCode);
+//  };
+
+
+  console.log(problem);
+   if (!problem) {
+     return (
+       <div>
+         Please select a problem type and click the generate problem button...
+       </div>
+     );
+   }
   let thisProblem = JSON.parse(problem);
 
-  const api_key = import.meta.env.VITE_OPENAI_API_KEY;
 
   let testCases = thisProblem.testCases.map((testCase, index) => {
     return { testCase: index + 1, testCaseInput: testCase };
   });
 
   const testUserAnswer = async (e) => {
-    setResults(null);
     e.preventDefault();
-    console.log("User Answer:", userAnswer);
-    const prompt =
-      `run this code: ${userAnswer} and return only the output of the test for each test case and the test case number. Do not provide the problem or the solution. Only the test case number, the output of the test, and true or false if the test passed. The problem was ` +
-      thisProblem.problem +
-      " The test cases were " +
-      JSON.stringify(testCases) +
-      ". Return in JSON format with an array like [{testCase: 1, testCaseOutput: 'output', testCasePassed: true}, {testCase: 2, testCaseOutput: 'output', testCasePassed: false}, {testCase: 3, testCaseOutput: 'output', testCasePassed: true}]";
+    setResults(null);
 
-    let currentPrompt = {
-      role: "user",
-      content: prompt,
-    };
+
 
     try {
+      console.log("User Answer:", userAnswer);
+      console.log("Problem:", problem);
       const response = await axios.post(
-        "https://api.openai.com/v1/chat/completions",
+        "http://localhost:8000/test",
         {
-          model: "gpt-3.5-turbo",
-          messages: [currentPrompt],
-          max_tokens: 150,
-          temperature: 0.5,
-          top_p: 1.0,
-          frequency_penalty: 0.0,
-          presence_penalty: 0.0,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${api_key}`,
-          },
-        }
-      );
+          userAnswer,
+          problem,
+        });
+
       let data = response.data;
-      console.log("Data:", JSON.parse(data.choices[0].message.content));
-      setResults(JSON.parse(data.choices[0].message.content));
+      console.log("Data:", data);
+
+      setResults(data);
     } catch (error) {
       console.error("Error executing code:", error);
       displayError(error);
@@ -75,12 +86,25 @@ function ProblemInput({
 
   return (
     <div className="container w-10/12 text-center">
-      <pre className="whitespace-pre-wrap font-sans mt-5">{thisProblem.problem}</pre>
-      <textarea
-        className="border-2 border-black rounded-lg p-1 w-5/6 h-52 mt-5"
-        value={userAnswer === null ? "" : userAnswer}
-        onChange={(e) => setUserAnswer(e.target.value)}
-      />
+      <pre className="whitespace-pre-wrap font-sans mt-5">
+        {thisProblem.problem}
+      </pre>
+      <br />
+      <pre>
+        <code
+          ref={codeRef}
+          className="language-javascript text-left h-fit-content w-fit-content p-5 border-2 border-black rounded-lg"
+          contentEditable={true}
+          suppressContentEditableWarning={true}
+        >
+          <textarea
+            className="border-2 border-black rounded-lg p-1 w-5/6 h-52 mt-5"
+            value={userAnswer != "" ? userAnswer : "Write your code here..."}
+            onChange={(e) => setUserAnswer(e.target.value)}
+          />
+        </code>
+      </pre>
+
       <br />
       <button
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-5 rounded "
@@ -90,11 +114,15 @@ function ProblemInput({
       </button>
       <br />
       <div className="font-bold">
+        {results && <h3 className="font-bold text-2xl underline">Results:</h3>}
         {results &&
           results.map((result, index) => (
-            <div key={index} className="flex items-center justify-center text-lg">
-              Test Case {result.testCase}: {" "}
-              {thisProblem.testCases[index]} : {result.testCaseOutput}{" "}
+            <div
+              key={index}
+              className="flex items-center justify-center text-lg"
+            >
+              Test Case {result.testCase}: {thisProblem.testCases[index]} :{" "}
+              {result.testCaseOutput}{" "}
               <img
                 src={result.testCasePassed ? correct : wrong}
                 className="mx-1"
@@ -103,7 +131,9 @@ function ProblemInput({
           ))}
       </div>
       <pre className="whitespace-pre-wrap font-sans text-lg font-bold">
-        <h3 className="font-bold text-2xl underline">Test Cases:</h3>
+        {!results && (
+          <h3 className="font-bold text-2xl underline">Test Cases:</h3>
+        )}
         {!results &&
           thisProblem.testCases.map(
             (testCase, index) => `Case ${index + 1}:  ` + testCase + "\n"

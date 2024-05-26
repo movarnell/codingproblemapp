@@ -3,6 +3,7 @@ import OptionsForm from "./components/OptionsForm";
 import ProblemInput from "./components/ProblemInput";
 import Title from "./components/Title";
 import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 //A few ideas for the app:
 
 // -Basic layout ie. header, footer, body content, grid/flex
@@ -21,11 +22,11 @@ function App() {
   const [language, setLanguage] = useState("JavaScript");
 const [problem, setProblem] = useState(() => {
   const savedProblem = localStorage.getItem("problem");
-  return savedProblem ? JSON.parse(savedProblem) : null;
+  return savedProblem ? JSON.parse(savedProblem) : "";
 });
 const [userAnswer, setUserAnswer] = useState(() => {
-  const savedUserAnswer = localStorage.getItem("userAnswer");
-  return savedUserAnswer ? savedUserAnswer : null;
+  const savedUserAnswer = Cookies.get("userAnswer");
+  return savedUserAnswer ? savedUserAnswer : "";
 });
 
   useEffect(() => {
@@ -33,9 +34,7 @@ const [userAnswer, setUserAnswer] = useState(() => {
     if (problem) {
       localStorage.setItem("problem", JSON.stringify(problem));
     }
-    if (userAnswer) {
-      localStorage.setItem("userAnswer", userAnswer);
-    }
+   
   }, [problem, userAnswer]);
 
   const [results, setResults] = useState(null);
@@ -63,6 +62,7 @@ const [userAnswer, setUserAnswer] = useState(() => {
           previousProblems={previousProblems}
           setPreviousProblems={setPreviousProblems}
           setUserAnswer={setUserAnswer}
+          setResults={setResults}
         />
         <div className="container-fluid flex flex-wrap items-center justify-center">
           {" "}
