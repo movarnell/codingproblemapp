@@ -75,7 +75,7 @@ app.post("/test", async (req, res) => {
     const api_key = process.env.API_KEY;
 
     const prompt =
-        `run this code: ${userAnswer} and return only the output of the test for each test case and the test case number. Do not provide the problem or the solution. Only the test case number, the output of the test, and true or false if the test passed. The problem was ` +
+        `run this code: ${userAnswer} and return only the output of the test for each test case and the test case number. Do not provide the problem or the solution. Only the test case number, the output of the test, and true or false if the test passed and returned the proper output for the test case. The problem was ` +
         thisProblem.problem +
         " The test cases were " +
         JSON.stringify(testCases) +

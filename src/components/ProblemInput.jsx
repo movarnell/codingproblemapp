@@ -1,10 +1,10 @@
 import axios from "axios";
-import hljs from "highlight.js";
-import "highlight.js/styles/atom-one-dark.css";
+// import hljs from "highlight.js";
+// import "highlight.js/styles/atom-one-dark.css";
 import React, { useRef, useEffect } from "react";
 import correct from "../assets/right.svg";
 import wrong from "../assets/wrong.svg";
-import DOMPurify from "dompurify";
+// import DOMPurify from "dompurify";
 
 //INFO This is ready to test!!!
 
@@ -16,24 +16,26 @@ function ProblemInput({
   setResults,
 }) {
   const codeRef = useRef(null);
-useEffect(() => {
-  const highlightCode = (block) => {
-    if (block.dataset.highlighted) {
-      delete block.dataset.highlighted;
-    }
-    const sanitizedInput = DOMPurify.sanitize(block.textContent);
-    block.textContent = sanitizedInput;
-    hljs.highlightElement(block);
-  };
 
-  // Apply syntax highlighting to all code elements
-  document.querySelectorAll("pre code").forEach(highlightCode);
+  //IMPORTANT This is being commented out to test the code without syntax highlighting
+// useEffect(() => {
+//   const highlightCode = (block) => {
+//     if (block.dataset.highlighted) {
+//       delete block.dataset.highlighted;
+//     }
+//     const sanitizedInput = DOMPurify.sanitize(block.textContent);
+//     block.textContent = sanitizedInput;
+//     hljs.highlightElement(block);
+//   };
 
-  // Apply syntax highlighting to the specific code element referenced by codeRef
-  if (codeRef.current) {
-    highlightCode(codeRef.current);
-  }
-}, [userAnswer]);
+//   // Apply syntax highlighting to all code elements
+//   document.querySelectorAll("pre code").forEach(highlightCode);
+
+//   // Apply syntax highlighting to the specific code element referenced by codeRef
+//   if (codeRef.current) {
+//     highlightCode(codeRef.current);
+//   }
+// }, [userAnswer]);
 
 //FIXME Unused code from attempt to make the code in the input update in real time
 //  const handleInputChange = (e) => {
