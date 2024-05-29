@@ -1,15 +1,19 @@
-const PORT = process.env.PORT || 8000;
-import express, { json } from "express";
-import cors from "cors";
-import axios from "axios";
-import { config } from "dotenv";
-config();
+const express = require("express");
+const cors = require("cors");
+const axios = require("axios");
+require("dotenv").config();
 
 const app = express();
-app.use(json()); // for parsing application/json
+const PORT = process.env.PORT || 8000;
+
+app.use(express.json()); // for parsing application/json
 
 const corsOptions = {
-  origin: ["http://localhost:5173", "http://89.116.167.116"],
+  origin: [
+    "http://localhost:5173",
+    "http://89.116.167.116",
+    "https://CodeProblems.michaelvarnell.com",
+  ],
   methods: "GET, POST, PUT, DELETE, OPTIONS",
   allowedHeaders: [
     "Origin",
@@ -18,6 +22,7 @@ const corsOptions = {
     "Accept",
     "Authorization",
   ],
+  credentials: true,
   optionsSuccessStatus: 200,
 };
 
@@ -34,6 +39,7 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
+  res.header("Access-Control-Allow-Credentials", "true");
   if (req.method === "OPTIONS") {
     return res.status(200).json({});
   }

@@ -19,11 +19,11 @@ useEffect(() => {
 
   const executeCode = async (e) => {
     e.preventDefault();
-    setUserAnswer(null);
+    setUserAnswer("");
     setResults(null);
 
     try {
-      const response = await axios.post("http://localhost:8000/generate", {
+      const response = await axios.post("http://89.116.167.116:8000/generate", {
         language,
         category,
         difficulty,

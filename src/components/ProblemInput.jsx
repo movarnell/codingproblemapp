@@ -70,7 +70,7 @@ function ProblemInput({
       console.log("User Answer:", userAnswer);
       console.log("Problem:", problem);
       const response = await axios.post(
-        "http://localhost:8000/test",
+        "http://89.116.167.116:8000/test",
         {
           userAnswer,
           problem,
@@ -101,7 +101,7 @@ function ProblemInput({
         >
           <textarea
             className="border-2 border-black rounded-lg p-1 w-5/6 h-52 mt-5"
-            value={userAnswer != "" ? userAnswer : "Write your code here..."}
+            value={userAnswer != "" || userAnswer != null || userAnswer != undefined ? userAnswer : "Write your code here..."}
             onChange={(e) => setUserAnswer(e.target.value)}
           />
         </code>
