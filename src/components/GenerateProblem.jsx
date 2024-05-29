@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 
+
 const GenerateProblem = ({
   difficulty,
   category,
@@ -23,7 +24,7 @@ useEffect(() => {
     setResults(null);
 
     try {
-      const response = await axios.post("http://89.116.167.116:8000/generate", {
+      const response = await axios.post("https://backend.michaelvarnell.com:8000/generate", {
         language,
         category,
         difficulty,
