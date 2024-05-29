@@ -89,23 +89,27 @@ function ProblemInput({
   return (
     <div className="container w-10/12 text-center">
       <pre className="whitespace-pre-wrap font-sans mt-5">
-        {thisProblem.problem}
+        <strong>PROBLEM:</strong> {thisProblem.problem}
       </pre>
       <br />
-      <pre>
+      {/* <pre>
         <code
           ref={codeRef}
           className="language-javascript text-left h-fit-content w-fit-content p-5 border-2 border-black rounded-lg"
           contentEditable={true}
           suppressContentEditableWarning={true}
-        >
+        > */}
           <textarea
             className="border-2 border-black rounded-lg p-1 w-5/6 h-52 mt-5"
-            value={userAnswer != "" || userAnswer != null || userAnswer != undefined ? userAnswer : "Write your code here..."}
+            value={
+              userAnswer != "" || userAnswer != null || userAnswer != undefined
+                ? userAnswer
+                : "Write your code here..."
+            }
             onChange={(e) => setUserAnswer(e.target.value)}
           />
-        </code>
-      </pre>
+        {/* </code>
+      </pre> */}
 
       <br />
       <button
