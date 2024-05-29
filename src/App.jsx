@@ -4,6 +4,7 @@ import ProblemInput from "./components/ProblemInput";
 import Title from "./components/Title";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import Footer from "./components/Footer";
 
 // https://srv957-files.hstgr.io/d5b13bc378450195/files/public_html/codeProblems/
 //A few ideas for the app:
@@ -22,21 +23,20 @@ function App() {
   const [difficulty, setDifficulty] = useState("very easy");
   const [category, setCategory] = useState("array");
   const [language, setLanguage] = useState("JavaScript");
-const [problem, setProblem] = useState(() => {
-  const savedProblem = localStorage.getItem("problem");
-  return savedProblem ? JSON.parse(savedProblem) : "";
-});
-const [userAnswer, setUserAnswer] = useState(() => {
-  const savedUserAnswer = Cookies.get("userAnswer");
-  return savedUserAnswer ? savedUserAnswer : "";
-});
+  const [problem, setProblem] = useState(() => {
+    const savedProblem = localStorage.getItem("problem");
+    return savedProblem ? JSON.parse(savedProblem) : "";
+  });
+  const [userAnswer, setUserAnswer] = useState(() => {
+    const savedUserAnswer = Cookies.get("userAnswer");
+    return savedUserAnswer ? savedUserAnswer : "";
+  });
 
   useEffect(() => {
     // Save the problem to local storage whenever it changes
     if (problem) {
       localStorage.setItem("problem", JSON.stringify(problem));
     }
-
   }, [problem, userAnswer]);
 
   const [results, setResults] = useState(null);
@@ -87,7 +87,16 @@ const [userAnswer, setUserAnswer] = useState(() => {
             </div>
           </div>
         </div>
+        <div className="text-center">
+          <a
+            href="www.helpcodeit.com"
+            className="text-center text-blue-600 font-bold hover:underline "
+          >
+            Back to HelpCodeIt.com
+          </a>
+        </div>
       </div>
+      <Footer />
     </>
   );
 }

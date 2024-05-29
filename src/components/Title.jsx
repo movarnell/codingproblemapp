@@ -1,7 +1,15 @@
+import titleGraphic from "../assets/titlegraphic.png";
+
 function Title() {
   return (
     <div>
-      <h1 className="text-4xl text-center">Code Problems for You - Beta</h1>
+      <div className="text-center">
+        <img
+          src={titleGraphic}
+          alt="title graphic"
+          className="w-full max-title-graphic"
+        />
+      </div>
 
       <p className="text-xs text-center text-red-500 font-bold italic">
         Some down time may occur...Improving backend.

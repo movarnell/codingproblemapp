@@ -1,7 +1,7 @@
 import axios from "axios";
 // import hljs from "highlight.js";
 // import "highlight.js/styles/atom-one-dark.css";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import correct from "../assets/right.svg";
 import wrong from "../assets/wrong.svg";
 // import DOMPurify from "dompurify";
@@ -16,6 +16,7 @@ function ProblemInput({
   setResults,
 }) {
   const codeRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   //IMPORTANT This is being commented out to test the code without syntax highlighting
 // useEffect(() => {
@@ -63,7 +64,7 @@ function ProblemInput({
   const testUserAnswer = async (e) => {
     e.preventDefault();
     setResults(null);
-
+    setIsLoading(true);
 
 
     try {
@@ -80,6 +81,7 @@ function ProblemInput({
       console.log("Data:", data);
 
       setResults(data);
+      setIsLoading(false);
     } catch (error) {
       console.error("Error executing code:", error);
       displayError(error);
@@ -87,11 +89,17 @@ function ProblemInput({
   };
 
   return (
-    <div className="container w-10/12 text-center">
+    <div className="container w-10/12 mx-auto">
       <pre className="whitespace-pre-wrap font-sans mt-5">
         <strong>PROBLEM:</strong> {thisProblem.problem}
       </pre>
       <br />
+      <div className="text-center">
+        {isLoading && <div className="spinner"></div>}
+        {isLoading && (
+          <h2 className="text-2xl font-bold text-center">Loading...</h2>
+        )}
+      </div>
       {/* <pre>
         <code
           ref={codeRef}
@@ -99,16 +107,16 @@ function ProblemInput({
           contentEditable={true}
           suppressContentEditableWarning={true}
         > */}
-          <textarea
-            className="border-2 border-black rounded-lg p-1 w-5/6 h-52 mt-5"
-            value={
-              userAnswer != "" || userAnswer != null || userAnswer != undefined
-                ? userAnswer
-                : "Write your code here..."
-            }
-            onChange={(e) => setUserAnswer(e.target.value)}
-          />
-        {/* </code>
+      <textarea
+        className="border-2 border-black rounded-lg p-1 w-5/6 h-52 mt-5"
+        value={
+          userAnswer != "" || userAnswer != null || userAnswer != undefined
+            ? userAnswer
+            : "Write your code here..."
+        }
+        onChange={(e) => setUserAnswer(e.target.value)}
+      />
+      {/* </code>
       </pre> */}
 
       <br />
@@ -119,6 +127,7 @@ function ProblemInput({
         Submit
       </button>
       <br />
+
       <div className="font-bold">
         {results && <h3 className="font-bold text-2xl underline">Results:</h3>}
         {results &&
