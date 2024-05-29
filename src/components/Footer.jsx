@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <div className="text-center">
+    <div className="footer">
       <footer>© Michael Varnell {new Date().getFullYear()}</footer>
     </div>
   );

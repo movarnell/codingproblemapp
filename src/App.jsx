@@ -87,10 +87,10 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="text-center">
+        <div className="text-center mt-20">
           <a
             href="www.helpcodeit.com"
-            className="text-center text-blue-600 font-bold hover:underline "
+            className=" text-center text-xl text-blue-700 font-bold hover:underline "
           >
             Back to HelpCodeIt.com
           </a>
