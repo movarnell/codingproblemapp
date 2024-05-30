@@ -87,7 +87,7 @@ function ProblemInput({
   };
 
   return (
-    <div className="container w-10/12 mx-auto">
+    <div className="container w-10/12 justify-center mx-auto">
       <pre className="whitespace-pre-wrap font-sans mt-5">
         <strong>PROBLEM:</strong> {thisProblem.problem}
       </pre>
@@ -114,7 +114,8 @@ function ProblemInput({
           suppressContentEditableWarning={true}
         > */}
 
-      <strong className="mb-0 mt-5">Your Answer:</strong><br />
+      <strong className="mb-0 mt-5">Your Answer:</strong>
+      <br />
 
       <textarea
         className="border-2 border-black rounded-lg p-1 w-5/6 h-52"
@@ -146,14 +147,14 @@ function ProblemInput({
           results.map((result, index) => (
             <div
               key={index}
-              className="flex items-center justify-center text-lg"
-            >
-              Test Case {result.testCase}: {thisProblem.testCases[index]} :{" "}
-              {result.testCaseOutput}{" "}
+              className="text-lg flex align-middle"
+              >
               <img
                 src={result.testCasePassed ? correct : wrong}
                 className="mx-1"
               />
+              Test Case {result.testCase}: {thisProblem.testCases[index]} :{" "}
+              {result.testCaseOutput}{" "}
             </div>
           ))}
       </div>
