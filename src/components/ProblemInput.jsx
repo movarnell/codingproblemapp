@@ -97,7 +97,14 @@ function ProblemInput({
       <div className="text-center">
         {isLoading && <div className="spinner"></div>}
         {isLoading && (
-          <h2 className="text-2xl font-bold text-center">Loading...</h2>
+          <>
+            <h2 className="text-2xl font-bold text-center">
+              Running the code...
+            </h2>
+            <h2 className="text-lg font-bold text-center">
+              This may take a second...
+            </h2>
+          </>
         )}
       </div>
       {/* <pre>
