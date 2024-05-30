@@ -33,4 +33,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/ # Assuming Vite outputs the build files to a 'dist' folder
-          server-dir: public_html/codeProblems/ # Change this to your remote directory path
+          server-dir: codeProblems/ # Change this to your remote directory path
