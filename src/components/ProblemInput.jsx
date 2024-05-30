@@ -19,43 +19,41 @@ function ProblemInput({
   const [isLoading, setIsLoading] = useState(false);
 
   //IMPORTANT This is being commented out to test the code without syntax highlighting
-// useEffect(() => {
-//   const highlightCode = (block) => {
-//     if (block.dataset.highlighted) {
-//       delete block.dataset.highlighted;
-//     }
-//     const sanitizedInput = DOMPurify.sanitize(block.textContent);
-//     block.textContent = sanitizedInput;
-//     hljs.highlightElement(block);
-//   };
+  // useEffect(() => {
+  //   const highlightCode = (block) => {
+  //     if (block.dataset.highlighted) {
+  //       delete block.dataset.highlighted;
+  //     }
+  //     const sanitizedInput = DOMPurify.sanitize(block.textContent);
+  //     block.textContent = sanitizedInput;
+  //     hljs.highlightElement(block);
+  //   };
 
-//   // Apply syntax highlighting to all code elements
-//   document.querySelectorAll("pre code").forEach(highlightCode);
+  //   // Apply syntax highlighting to all code elements
+  //   document.querySelectorAll("pre code").forEach(highlightCode);
 
-//   // Apply syntax highlighting to the specific code element referenced by codeRef
-//   if (codeRef.current) {
-//     highlightCode(codeRef.current);
-//   }
-// }, [userAnswer]);
+  //   // Apply syntax highlighting to the specific code element referenced by codeRef
+  //   if (codeRef.current) {
+  //     highlightCode(codeRef.current);
+  //   }
+  // }, [userAnswer]);
 
-//FIXME Unused code from attempt to make the code in the input update in real time
-//  const handleInputChange = (e) => {
-//    const rawCode = e.target.value;
-//    const highlightedCode = hljs.highlightAuto(rawCode).value;
-//    setUserAnswer(highlightedCode);
-//  };
-
+  //FIXME Unused code from attempt to make the code in the input update in real time
+  //  const handleInputChange = (e) => {
+  //    const rawCode = e.target.value;
+  //    const highlightedCode = hljs.highlightAuto(rawCode).value;
+  //    setUserAnswer(highlightedCode);
+  //  };
 
   console.log(problem);
-   if (!problem) {
-     return (
-       <div>
-         Please select a problem type and click the generate problem button...
-       </div>
-     );
-   }
+  if (!problem) {
+    return (
+      <div>
+        Please select a problem type and click the generate problem button...
+      </div>
+    );
+  }
   let thisProblem = JSON.parse(problem);
-
 
   let testCases = thisProblem.testCases.map((testCase, index) => {
     return { testCase: index + 1, testCaseInput: testCase };
@@ -66,7 +64,6 @@ function ProblemInput({
     setResults(null);
     setIsLoading(true);
 
-
     try {
       console.log("User Answer:", userAnswer);
       console.log("Problem:", problem);
@@ -75,7 +72,8 @@ function ProblemInput({
         {
           userAnswer,
           problem,
-        });
+        }
+      );
 
       let data = response.data;
       console.log("Data:", data);
@@ -94,22 +92,20 @@ function ProblemInput({
         <strong>PROBLEM:</strong> {thisProblem.problem}
       </pre>
       <br />
-      {isLoading && <div className="text-center alert-loading">
+      {isLoading && (
+        <div className="text-center alert-loading">
+          <div className="alert-styles">
+            <div className="spinner"></div>
 
-        <div className="alert-styles">
-          <div className="spinner"></div>
-
-              <h2 className="text-2xl font-bold text-center">
-                Running the code...
-              </h2>
-              <h2 className="text-lg font-bold text-center">
-                This may take a second...
-              </h2>
-
-              </div>
+            <h2 className="text-2xl font-bold text-center">
+              Running the code...
+            </h2>
+            <h2 className="text-lg font-bold text-center">
+              This may take a second...
+            </h2>
+          </div>
         </div>
-
-      }
+      )}
       {/* <pre>
         <code
           ref={codeRef}
@@ -117,8 +113,11 @@ function ProblemInput({
           contentEditable={true}
           suppressContentEditableWarning={true}
         > */}
+
+      <strong className="mb-0 mt-5">Your Answer:</strong><br />
+
       <textarea
-        className="border-2 border-black rounded-lg p-1 w-5/6 h-52 mt-5"
+        className="border-2 border-black rounded-lg p-1 w-5/6 h-52"
         value={
           userAnswer != "" || userAnswer != null || userAnswer != undefined
             ? userAnswer
@@ -139,6 +138,9 @@ function ProblemInput({
       <br />
 
       <div className="font-bold">
+        <p className="font-normal">
+          Your results will show beside the test case it corresponds to.{" "}
+        </p>
         {results && <h3 className="font-bold text-2xl underline">Results:</h3>}
         {results &&
           results.map((result, index) => (
