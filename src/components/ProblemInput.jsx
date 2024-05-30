@@ -94,19 +94,22 @@ function ProblemInput({
         <strong>PROBLEM:</strong> {thisProblem.problem}
       </pre>
       <br />
-      <div className="text-center">
-        {isLoading && <div className="spinner"></div>}
-        {isLoading && (
-          <>
-            <h2 className="text-2xl font-bold text-center">
-              Running the code...
-            </h2>
-            <h2 className="text-lg font-bold text-center">
-              This may take a second...
-            </h2>
-          </>
-        )}
-      </div>
+      {isLoading && <div className="text-center alert-loading">
+
+        <div className="alert-styles">
+          <div className="spinner"></div>
+
+              <h2 className="text-2xl font-bold text-center">
+                Running the code...
+              </h2>
+              <h2 className="text-lg font-bold text-center">
+                This may take a second...
+              </h2>
+
+              </div>
+        </div>
+
+      }
       {/* <pre>
         <code
           ref={codeRef}

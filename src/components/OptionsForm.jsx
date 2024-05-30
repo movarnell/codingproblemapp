@@ -15,13 +15,13 @@ function OptionsForm({
 }) {
   // Menu providing dropdown options to choose: Language, Difficulty, Category
   return (
-    <form className="p-5 text-base mx-auto grid sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-4 grid-flow-row-dense">
+    <form className="p-5 text-base mx-auto flex justify-center lg:flex-row md:flex-col">
       {" "}
-      <div className="text-center flex justify-center items-center mb-1">
+      <div className="text-center flex justify-center items-center mb-1 mx-2">
         <label className="font-bold">Language: </label>
         <select
           name="language"
-          className="text-sm rounded-lg py-1"
+          className="text-sm rounded-xl py-0.5 ms-2"
           onChange={(e) => setLanguage(e.target.value)}
         >
           <option value="JavaScript">JavaScript</option>
@@ -52,12 +52,12 @@ function OptionsForm({
           <option value="basic">Basic</option>
         </select>
       </div>
-      <div className="text-center flex justify-center items-center mb-1">
+      <div className="text-center flex justify-center items-center mb-1 mx-2">
         <label className="font-bold">Difficulty: </label>
         <select
           name="difficulty"
           onChange={(e) => setDifficulty(e.target.value)}
-          className="text-sm rounded-lg py-1 "
+          className="text-sm rounded-xl py-0.5 ms-2"
         >
           <option value="very easy">Very Easy</option>
           <option value="easy">Easy</option>
@@ -68,11 +68,11 @@ function OptionsForm({
           <option value="very hard">Very Hard</option>
         </select>
       </div>
-      <div className="text-center flex justify-center items-center mb-1">
+      <div className="text-center flex justify-center items-center mb-1 mx-2">
         <label className="font-bold">Category: </label>
         <select
           name="category"
-          className="text-sm rounded-lg py-1"
+          className="text-sm rounded-xl py-0.5 ms-2"
           onChange={(e) => setCategory(e.target.value)}
         >
           <option value="random">RANDOM</option>
@@ -84,7 +84,6 @@ function OptionsForm({
           <option value="math">Math</option>
           <option value="recursion">Recursion</option>
           <option value="sorting">Sorting</option>
-          
         </select>
       </div>
       <div className="flex justify-center items-center">

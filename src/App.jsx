@@ -51,7 +51,7 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className="mb-40">
         <Title />
         <OptionsForm
           setCategory={setCategory}

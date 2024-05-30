@@ -26,3 +26,25 @@
   background-color: #f8f9fa;
   text-align: center;
 }
+
+.alert-loading {
+  position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: rgba(128, 128, 128, 0.5); /* semi-transparent grey */
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.alert-styles {
+  background-color: #ffffff;
+  width: fit-content;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 5px;
+  border: 1px solid #000000;
+  margin-inline: auto;
+}
