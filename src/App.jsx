@@ -9,11 +9,8 @@ import Footer from "./components/Footer";
 // https://srv957-files.hstgr.io/d5b13bc378450195/files/public_html/codeProblems/
 //A few ideas for the app:
 
-// -Basic layout ie. header, footer, body content, grid/flex
-// -Form for problem creation
-// -Submit button
 // -Sections for hints and feedback
-// -API implementation
+
 
 // optional,
 // -user registration/login
