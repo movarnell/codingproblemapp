@@ -4,6 +4,8 @@ import axios from "axios";
 import React, { useRef, useState } from "react";
 import correct from "../assets/right.svg";
 import wrong from "../assets/wrong.svg";
+import Loading from "./Loading";
+import Alert from "./Alert";
 // import DOMPurify from "dompurify";
 
 //INFO This is ready to test!!!
@@ -17,6 +19,7 @@ function ProblemInput({
 }) {
   const codeRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [userAnswerAlert, setUserAnswerAlert] = useState(false);
 
   //IMPORTANT This is being commented out to test the code without syntax highlighting
   // useEffect(() => {
@@ -61,6 +64,9 @@ function ProblemInput({
 
   const testUserAnswer = async (e) => {
     e.preventDefault();
+    if(userAnswer){
+
+
     setResults(null);
     setIsLoading(true);
 
@@ -84,6 +90,9 @@ function ProblemInput({
       console.error("Error executing code:", error);
       displayError(error);
     }
+  } else {
+    setUserAnswerAlert(true);
+  }
   };
 
   return (
@@ -92,19 +101,10 @@ function ProblemInput({
         <strong>PROBLEM:</strong> {thisProblem.problem}
       </pre>
       <br />
+      {userAnswerAlert && (
+        <Alert alertState={userAnswerAlert} setAlertState={setUserAnswerAlert} alertMessage="Please write your code before submitting." />)}
       {isLoading && (
-        <div className="text-center alert-loading">
-          <div className="alert-styles">
-            <div className="spinner"></div>
-
-            <h2 className="text-2xl font-bold text-center">
-              Running the code...
-            </h2>
-            <h2 className="text-lg font-bold text-center">
-              This may take a second...
-            </h2>
-          </div>
-        </div>
+        <Loading message="Running your code..." submessage="This may take a moment"/>
       )}
       {/* <pre>
         <code

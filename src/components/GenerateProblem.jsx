@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Loading from "./Loading";
 
 const GenerateProblem = ({
   difficulty,
@@ -53,18 +54,7 @@ const GenerateProblem = ({
   return (
     <div className="flex align-middle">
       {isLoading && (
-        <div className="text-center alert-loading">
-          <div className="alert-styles">
-            <div className="spinner"></div>
-
-            <h2 className="text-2xl font-bold text-center">
-              Generating the problem...
-            </h2>
-            <h2 className="text-lg font-bold text-center">
-              This may take a second...
-            </h2>
-          </div>
-        </div>
+        <Loading message="Generating Problem" submessage="This may take a second..."/>
       )}
       <button
         className="bg-gray-700 rounded-xl hover:bg-blue-700 text-white font-bold py-2 px-4 lg:ms-5"
