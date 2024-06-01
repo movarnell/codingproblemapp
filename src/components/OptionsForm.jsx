@@ -15,7 +15,7 @@ function OptionsForm({
 }) {
   // Menu providing dropdown options to choose: Language, Difficulty, Category
   return (
-    <form className="p-5 text-base mx-auto flex justify-center lg:flex-row md:flex-col">
+    <form className="p-5 text-base mx-auto flex justify-center flex-col lg:flex-row">
       {" "}
       <div className="text-center flex justify-center items-center mb-1 mx-2">
         <label className="font-bold">Language: </label>
@@ -31,25 +31,7 @@ function OptionsForm({
           <option value="C#">C#</option>
           <option value="Ruby">Ruby</option>
           <option value="Swift">Swift</option>
-          <option value="Go">Go</option>
-          <option value="Kotlin">Kotlin</option>
-          <option value="Rust">Rust</option>
-          <option value="TypeScript">TypeScript</option>
-          <option value="PHP">PHP</option>
-          <option value="R">R</option>
-          <option value="Scala">Scala</option>
-          <option value="Perl">Perl</option>
-          <option value="Haskell">Haskell</option>
-          <option value="Lua">Lua</option>
-          <option value="Julia">Julia</option>
-          <option value="Dart">Dart</option>
-          <option value="Elixir">Elixir</option>
-          <option value="Clojure">Clojure</option>
-          <option value="F#">F#</option>
-          <option value="Objective-C">Objective-C</option>
-          <option value="Shell">Shell</option>
-          <option value="PowerShell">PowerShell</option>
-          <option value="basic">Basic</option>
+          
         </select>
       </div>
       <div className="text-center flex justify-center items-center mb-1 mx-2">

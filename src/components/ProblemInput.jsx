@@ -1,12 +1,10 @@
 import axios from "axios";
-// import hljs from "highlight.js";
-// import "highlight.js/styles/atom-one-dark.css";
+
 import React, { useRef, useState } from "react";
 import correct from "../assets/right.svg";
 import wrong from "../assets/wrong.svg";
 import Loading from "./Loading";
 import Alert from "./Alert";
-// import DOMPurify from "dompurify";
 
 //INFO This is ready to test!!!
 
@@ -20,33 +18,6 @@ function ProblemInput({
   const codeRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [userAnswerAlert, setUserAnswerAlert] = useState(false);
-
-  //IMPORTANT This is being commented out to test the code without syntax highlighting
-  // useEffect(() => {
-  //   const highlightCode = (block) => {
-  //     if (block.dataset.highlighted) {
-  //       delete block.dataset.highlighted;
-  //     }
-  //     const sanitizedInput = DOMPurify.sanitize(block.textContent);
-  //     block.textContent = sanitizedInput;
-  //     hljs.highlightElement(block);
-  //   };
-
-  //   // Apply syntax highlighting to all code elements
-  //   document.querySelectorAll("pre code").forEach(highlightCode);
-
-  //   // Apply syntax highlighting to the specific code element referenced by codeRef
-  //   if (codeRef.current) {
-  //     highlightCode(codeRef.current);
-  //   }
-  // }, [userAnswer]);
-
-  //FIXME Unused code from attempt to make the code in the input update in real time
-  //  const handleInputChange = (e) => {
-  //    const rawCode = e.target.value;
-  //    const highlightedCode = hljs.highlightAuto(rawCode).value;
-  //    setUserAnswer(highlightedCode);
-  //  };
 
   console.log(problem);
   if (!problem) {
@@ -64,35 +35,36 @@ function ProblemInput({
 
   const testUserAnswer = async (e) => {
     e.preventDefault();
-    if(userAnswer && userAnswer != ""){
+    if (userAnswer.trim()) {
+      setResults(null);
+      setIsLoading(true);
 
+      try {
+        console.log("User Answer:", userAnswer);
+        console.log("Problem:", problem);
+        const response = await axios.post(
+          "https://backend.michaelvarnell.com:8000/test",
+          {
+            userAnswer,
+            problem,
+          }
+        );
 
-    setResults(null);
-    setIsLoading(true);
+        let data = response.data;
+        console.log("Data:", data);
 
-    try {
-      console.log("User Answer:", userAnswer);
-      console.log("Problem:", problem);
-      const response = await axios.post(
-        "https://backend.michaelvarnell.com:8000/test",
-        {
-          userAnswer,
-          problem,
-        }
-      );
-
-      let data = response.data;
-      console.log("Data:", data);
-
-      setResults(data);
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Error executing code:", error);
-      displayError(error);
+        setResults(data);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        console.error("Error executing code:", error);
+        alert(
+          "There was an error running your code. Please refresh the page and try again."
+        );
+      }
+    } else {
+      setUserAnswerAlert(true);
     }
-  } else {
-    setUserAnswerAlert(true);
-  }
   };
 
   return (
@@ -102,17 +74,18 @@ function ProblemInput({
       </pre>
       <br />
       {userAnswerAlert && (
-        <Alert alertState={userAnswerAlert} setAlertState={setUserAnswerAlert} alertMessage="Please write your code before submitting." />)}
-      {isLoading && (
-        <Loading message="Running your code..." submessage="This may take a moment"/>
+        <Alert
+          alertState={userAnswerAlert}
+          setAlertState={setUserAnswerAlert}
+          alertMessage="Please write your code before submitting."
+        />
       )}
-      {/* <pre>
-        <code
-          ref={codeRef}
-          className="language-javascript text-left h-fit-content w-fit-content p-5 border-2 border-black rounded-lg"
-          contentEditable={true}
-          suppressContentEditableWarning={true}
-        > */}
+      {isLoading && (
+        <Loading
+          message="Running your code..."
+          submessage="This may take a moment"
+        />
+      )}
 
       <strong className="mb-0 mt-5">Your Answer:</strong>
       <br />
@@ -143,31 +116,39 @@ function ProblemInput({
           Your results will show beside the test case it corresponds to.{" "}
         </p>
         {results && <h3 className="font-bold text-2xl underline">Results:</h3>}
-        {results &&
-          results.map((result, index) => (
-            <div
-              key={index}
-              className="text-lg flex align-middle"
-              >
-              <img
-                src={result.testCasePassed ? correct : wrong}
-                className="mx-1"
-              />
-              Test Case {result.testCase}: {thisProblem.testCases[index]} :{" "}
-              {result.testCaseOutput}{" "}
-            </div>
-          ))}
-      </div>
-      <pre className="whitespace-pre-wrap font-sans text-lg font-bold">
-        {!results && (
-          <h3 className="font-bold text-2xl underline">Test Cases:</h3>
+       <div className="grid grid-cols-3 gap-4 sm:grid-cols-1">
+  {results && results.map((result, index) => (
+    <div key={index} className="text-lg flex align-middle">
+      <img
+        src={result.testCasePassed ? correct : wrong}
+        className="mx-1 w-11"
+      />
+      <div>
+        Test Case {result.testCase}: {thisProblem.testCases[index]}
+        <br /> Outcome: {result.testCaseOutput}
+        <br />
+        {result.testCasePassed ? (
+          <p className="text-green-500"> Passed </p>
+        ) : (
+          <p className="text-red-500"> Failed </p>
         )}
-        {!results &&
-          thisProblem.testCases.map(
-            (testCase, index) => `Case ${index + 1}:  ` + testCase + "\n"
-          )}
-      </pre>
+      </div>
     </div>
+  ))}
+</div>
+
+          <pre className="whitespace-pre-wrap font-sans text-lg font-bold">
+            {!results && (
+              <h3 className="font-bold text-2xl underline">Test Cases:</h3>
+            )}
+            {!results &&
+              thisProblem.testCases.map(
+                (testCase, index) => `Case ${index + 1}:  ` + testCase + "\n"
+              )}
+          </pre>
+        </div>
+      </div>
+
   );
 }
 export default ProblemInput;

@@ -11,10 +11,16 @@ function Title() {
         />
       </div>
 
-      <p className="text-xs text-center text-red-500 font-bold italic">
-        Some down time may occur...Still in beta testing.
+      <p className="text-base text-center text-red-500 font-bold italic">
+        I am still working with the AI to get reliable results. At the moment
+        most of the time it is providing correct results. Sometimes it may not.
         <br />
-        Apologies if you encounter any issues. This is a free service.
+        Apologies if you encounter any issues. This is a free service. If you
+        would like to support me, please consider buying me a coffee. <br />
+        <span className="text-black text-base">
+          If you would like to provide feedback email me at
+          michaelvarnell@icloud.com
+        </span>
       </p>
       <div className="flex justify-center my-5">
         <a href="https://www.buymeacoffee.com/michaelvarnell" target="_blank">
