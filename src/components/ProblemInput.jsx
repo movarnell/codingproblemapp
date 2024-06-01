@@ -64,7 +64,7 @@ function ProblemInput({
 
   const testUserAnswer = async (e) => {
     e.preventDefault();
-    if(userAnswer){
+    if(userAnswer || userAnswer != "" || userAnswer != undefined || userAnswer != null){
 
 
     setResults(null);
