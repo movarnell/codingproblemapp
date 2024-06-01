@@ -40,7 +40,7 @@ const GenerateProblem = ({
 
       let newMessage = {
         role: "assistant",
-        content: data.problem.content,
+        content: "do not repeat problems. Previous Problems: " + previousProblems+ ". " + data.problem.content,
       };
 
       setPreviousProblems([...previousProblems, newMessage]);
