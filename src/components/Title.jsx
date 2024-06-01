@@ -12,7 +12,7 @@ function Title() {
       </div>
 
       <p className="text-xs text-center text-red-500 font-bold italic">
-        Some down time may occur...Improving backend.
+        Some down time may occur...Still in beta testing.
         <br />
         Apologies if you encounter any issues. This is a free service.
       </p>
