@@ -11,28 +11,28 @@ import Footer from "./components/Footer";
 
 // -Sections for hints and feedback
 
-
 // optional,
 // -user registration/login
 // -database to store your answer.
 
 function App() {
   const [difficulty, setDifficulty] = useState("very easy");
-  const [category, setCategory] = useState("array");
+  const [category, setCategory] = useState("random");
   const [language, setLanguage] = useState("JavaScript");
   const [problem, setProblem] = useState(() => {
-    const savedProblem = localStorage.getItem("problem");
+    const savedProblem = Cookies.get("problem");
     return savedProblem ? JSON.parse(savedProblem) : "";
   });
+
   const [userAnswer, setUserAnswer] = useState(() => {
     const savedUserAnswer = Cookies.get("userAnswer");
     return savedUserAnswer ? savedUserAnswer : "";
   });
-
+// NOTE : We need a way to save the users history, that appends to it when they are using the site, and sends it with the problems.
   useEffect(() => {
     // Save the problem to local storage whenever it changes
     if (problem) {
-      localStorage.setItem("problem", JSON.stringify(problem));
+      Cookies.set("problem", JSON.stringify(problem), { expires: 2 });
     }
   }, [problem, userAnswer]);
 
