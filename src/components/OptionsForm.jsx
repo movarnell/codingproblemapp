@@ -31,7 +31,7 @@ function OptionsForm({
           <option value="C#">C#</option>
           <option value="Ruby">Ruby</option>
           <option value="Swift">Swift</option>
-          
+
         </select>
       </div>
       <div className="text-center flex justify-center items-center mb-1 mx-2">
@@ -57,14 +57,14 @@ function OptionsForm({
           className="text-sm rounded-xl py-0.5 ms-2"
           onChange={(e) => setCategory(e.target.value)}
         >
-          <option value="random">RANDOM</option>
+          <option value="problem from any category">RANDOM</option>
+          <option value="conditionals">Conditionals</option>
           <option value="arrays">Arrays</option>
           <option value="strings">Strings</option>
           <option value="loops">Loops</option>
           <option value="functions">Functions</option>
           <option value="objects">Objects</option>
           <option value="math">Math</option>
-          <option value="recursion">Recursion</option>
           <option value="sorting">Sorting</option>
         </select>
       </div>

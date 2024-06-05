@@ -19,15 +19,16 @@ function App() {
   const [difficulty, setDifficulty] = useState("very easy");
   const [category, setCategory] = useState("random");
   const [language, setLanguage] = useState("JavaScript");
-  const [problem, setProblem] = useState(() => {
-    const savedProblem = Cookies.get("problem");
-    return savedProblem ? JSON.parse(savedProblem) : "";
-  });
-
-  const [userAnswer, setUserAnswer] = useState(() => {
-    const savedUserAnswer = Cookies.get("userAnswer");
-    return savedUserAnswer ? savedUserAnswer : "";
-  });
+  const [problem, setProblem] = useState(() => {""});
+  // const [problem, setProblem] = useState(() => {
+  //   const savedProblem = Cookies.get("problem");
+  //   return savedProblem ? JSON.parse(savedProblem) : "";
+  // });
+  const [userAnswer, setUserAnswer] = useState("");
+  // const [userAnswer, setUserAnswer] = useState(() => {
+  //   const savedUserAnswer = Cookies.get("userAnswer");
+  //   return savedUserAnswer ? savedUserAnswer : "";
+  // });
 // NOTE : We need a way to save the users history, that appends to it when they are using the site, and sends it with the problems.
   useEffect(() => {
     // Save the problem to local storage whenever it changes
@@ -36,7 +37,7 @@ function App() {
     }
   }, [problem, userAnswer]);
 
-  const [results, setResults] = useState(null);
+  const [results, setResults] = useState([]);
   const [previousProblems, setPreviousProblems] = useState([
     {
       role: "system",

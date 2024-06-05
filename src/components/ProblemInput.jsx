@@ -15,6 +15,7 @@ function ProblemInput({
   results,
   setResults,
 }) {
+  console.log("userAnswer:", userAnswer);
   const codeRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [userAnswerAlert, setUserAnswerAlert] = useState(false);
@@ -29,19 +30,21 @@ function ProblemInput({
   }
   let thisProblem = JSON.parse(problem);
 
-  let testCases = thisProblem.testCases.map((testCase, index) => {
-    return { testCase: index + 1, testCaseInput: testCase };
-  });
+  // let testCases = thisProblem.testCases.map((testCase, index) => {
+  //   return { testCase: index + 1, testCaseInput: testCase };
+  // });
 
   const testUserAnswer = async (e) => {
+      console.log("Show user answer:", userAnswer);
+
     e.preventDefault();
     if (userAnswer.trim()) {
       setResults(null);
       setIsLoading(true);
 
       try {
-        console.log("User Answer:", userAnswer);
         console.log("Problem:", problem);
+        console.log("User Answer:", userAnswer);
         const response = await axios.post(
           "https://backend.michaelvarnell.com:8000/test",
           {
@@ -67,6 +70,7 @@ function ProblemInput({
     }
   };
 
+  console.log(results);
   return (
     <div className="container w-10/12 justify-center mx-auto">
       <pre className="whitespace-pre-wrap font-sans mt-5">
@@ -117,29 +121,33 @@ function ProblemInput({
         </p>
         {results && <h3 className="font-bold text-2xl underline">Results:</h3>}
        <div className="grid grid-cols-3 gap-4 sm:grid-cols-1">
-  {results && results.map((result, index) => (
+  {results && results.results.map((result, index) => {
+    // console.log(result);
+  return (
     <div key={index} className="text-lg flex align-middle">
       <img
-        src={result.testCasePassed ? correct : wrong}
+        src={result.testCaseOutput === result.expectedOutput ? correct : wrong}
         className="mx-1 w-11"
       />
       <div>
-        Test Case {result.testCase}: {thisProblem.testCases[index]}
+         {thisProblem.testCases[index]}
         <br /> Outcome: {result.testCaseOutput}
         <br />
-        {result.testCasePassed ? (
+        {result.testCaseOutput === result.expectedOutput ? (
           <p className="text-green-500"> Passed </p>
         ) : (
           <p className="text-red-500"> Failed </p>
         )}
       </div>
     </div>
-  ))}
+  );
+}
+)}
 </div>
 
           <pre className="whitespace-pre-wrap font-sans text-lg font-bold">
             {!results && (
-              <h3 className="font-bold text-2xl underline">Test Cases:</h3>
+              <h3 className="font-bold text-2xl underline"></h3>
             )}
             {!results &&
               thisProblem.testCases.map(
