@@ -1,12 +1,9 @@
 import axios from "axios";
-
 import React, { useRef, useState } from "react";
 import correct from "../assets/right.svg";
 import wrong from "../assets/wrong.svg";
 import Loading from "./Loading";
 import Alert from "./Alert";
-
-//INFO This is ready to test!!!
 
 function ProblemInput({
   problem,
@@ -15,10 +12,12 @@ function ProblemInput({
   results,
   setResults,
 }) {
+  console.clear();
   console.log("userAnswer:", userAnswer);
   const codeRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [userAnswerAlert, setUserAnswerAlert] = useState(false);
+  const [issue, setIssue] = useState("");
 
   console.log(problem);
   if (!problem) {
@@ -30,12 +29,8 @@ function ProblemInput({
   }
   let thisProblem = JSON.parse(problem);
 
-  // let testCases = thisProblem.testCases.map((testCase, index) => {
-  //   return { testCase: index + 1, testCaseInput: testCase };
-  // });
-
   const testUserAnswer = async (e) => {
-      console.log("Show user answer:", userAnswer);
+    console.log("Show user answer:", userAnswer);
 
     e.preventDefault();
     if (userAnswer.trim()) {
@@ -61,8 +56,8 @@ function ProblemInput({
       } catch (error) {
         setIsLoading(false);
         console.error("Error executing code:", error);
-        alert(
-          "There was an error running your code. Please refresh the page and try again."
+        setIssue(
+          "There was an error running your code or with the connection to our server. Please refresh the page and try again."
         );
       }
     } else {
@@ -74,8 +69,10 @@ function ProblemInput({
   return (
     <div className="container w-10/12 justify-center mx-auto">
       <pre className="whitespace-pre-wrap font-sans mt-5">
-        <strong>PROBLEM:</strong> {thisProblem.problem}
+        <strong>PROBLEM: </strong> {issue && issue}
+        {thisProblem.problem}
       </pre>
+
       <br />
       {userAnswerAlert && (
         <Alert
@@ -120,43 +117,59 @@ function ProblemInput({
           Your results will show beside the test case it corresponds to.{" "}
         </p>
         {results && <h3 className="font-bold text-2xl underline">Results:</h3>}
-       <div className="grid grid-cols-3 gap-4 sm:grid-cols-1">
-  {results && results.results.map((result, index) => {
-    // console.log(result);
-  return (
-    <div key={index} className="text-lg flex align-middle">
-      <img
-        src={result.testCaseOutput === result.expectedOutput ? correct : wrong}
-        className="mx-1 w-11"
-      />
-      <div>
-         {thisProblem.testCases[index]}
-        <br /> Outcome: {result.testCaseOutput}
-        <br />
-        {result.testCaseOutput === result.expectedOutput ? (
-          <p className="text-green-500"> Passed </p>
-        ) : (
-          <p className="text-red-500"> Failed </p>
-        )}
+        <div className="grid grid-cols-3 gap-4 sm:grid-cols-1">
+          {console.log(results)}
+          {results &&
+            results.results &&
+            Array.isArray(results.results) &&
+            results.results.map((result, index) => {
+              console.log(result, index);
+              return (
+                <div key={index} className="text-lg flex align-middle">
+                  <img
+                    src={
+                      thisProblem.testCases[index].result ===
+                      result.actualOutput
+                        ? correct
+                        : wrong
+                    }
+                    className="mx-1 w-11"
+                  />
+                  <div>
+                    Case {index+1}: {thisProblem.testCases[index].case}
+                    <br /> Correct Output: {thisProblem.testCases[index].result}
+
+                    <br /> User Output: {result.actualOutput}
+                    <br />
+                    {console.log("Expected Output:", result.actualOutput)}
+                    {console.log("Result:", result)}
+                    {thisProblem.testCases[index].result ===
+                    result.actualOutput ? (
+                      <p className="text-green-500"> Passed </p>
+                    ) : (
+                      <p className="text-red-500"> Failed </p>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+        </div>
+
+        <pre className="whitespace-pre-wrap font-sans text-lg font-bold">
+          {!results && <h3 className="font-bold text-2xl underline"></h3>}
+          {!results &&
+            thisProblem.testCases.map(
+              (testCase, index) =>
+                `Case ${index + 1}:  ` +
+                testCase.case +
+                "\n" +
+                `Expected Output:  ` +
+                testCase.result +
+                "\n"
+            )}
+        </pre>
       </div>
     </div>
-  );
-}
-)}
-</div>
-
-          <pre className="whitespace-pre-wrap font-sans text-lg font-bold">
-            {!results && (
-              <h3 className="font-bold text-2xl underline"></h3>
-            )}
-            {!results &&
-              thisProblem.testCases.map(
-                (testCase, index) => `Case ${index + 1}:  ` + testCase + "\n"
-              )}
-          </pre>
-        </div>
-      </div>
-
   );
 }
 export default ProblemInput;

@@ -26,11 +26,7 @@ function OptionsForm({
         >
           <option value="JavaScript">JavaScript</option>
           <option value="Python">Python</option>
-          <option value="Java">Java</option>
-          <option value="C++">C++</option>
-          <option value="C#">C#</option>
-          <option value="Ruby">Ruby</option>
-          <option value="Swift">Swift</option>
+          <option disabled>May be more later</option>
 
         </select>
       </div>

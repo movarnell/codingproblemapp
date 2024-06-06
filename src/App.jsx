@@ -17,7 +17,7 @@ import Footer from "./components/Footer";
 
 function App() {
   const [difficulty, setDifficulty] = useState("very easy");
-  const [category, setCategory] = useState("random");
+  const [category, setCategory] = useState("conditionals");
   const [language, setLanguage] = useState("JavaScript");
   const [problem, setProblem] = useState(() => {""});
   // const [problem, setProblem] = useState(() => {
