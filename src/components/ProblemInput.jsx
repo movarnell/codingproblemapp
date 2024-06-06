@@ -117,7 +117,7 @@ function ProblemInput({
           Your results will show beside the test case it corresponds to.{" "}
         </p>
         {results && <h3 className="font-bold text-2xl underline">Results:</h3>}
-        <div className="grid grid-cols-3 gap-4 sm:grid-cols-1">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {console.log(results)}
           {results &&
             results.results &&
