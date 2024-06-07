@@ -26,6 +26,8 @@ function OptionsForm({
         >
           <option value="JavaScript">JavaScript</option>
           <option value="Python">Python</option>
+          <option value="Java">Java</option>
+          <option value="HTML">HTML</option>
           <option disabled>May be more later</option>
 
         </select>
@@ -37,13 +39,11 @@ function OptionsForm({
           onChange={(e) => setDifficulty(e.target.value)}
           className="text-sm rounded-xl py-0.5 ms-2"
         >
-          <option value="very easy">Very Easy</option>
-          <option value="easy">Easy</option>
-          <option value="simple">Simple</option>
-          <option value="medium">Medium</option>
-          <option value="moderate">Moderate</option>
-          <option value="hard">Hard</option>
-          <option value="very hard">Very Hard</option>
+          <option value="Very Easy">Very Easy</option>
+          <option value="Easy">Easy</option>
+          <option value="Moderate">Moderate</option>
+          <option value="Hard">Hard</option>
+          <option value="Expert">Expert</option>
         </select>
       </div>
       <div className="text-center flex justify-center items-center mb-1 mx-2">
@@ -53,7 +53,6 @@ function OptionsForm({
           className="text-sm rounded-xl py-0.5 ms-2"
           onChange={(e) => setCategory(e.target.value)}
         >
-          <option value="problem from any category">RANDOM</option>
           <option value="conditionals">Conditionals</option>
           <option value="arrays">Arrays</option>
           <option value="strings">Strings</option>
@@ -62,6 +61,7 @@ function OptionsForm({
           <option value="objects">Objects</option>
           <option value="math">Math</option>
           <option value="sorting">Sorting</option>
+          <option value="totally random topic for problem">RANDOM</option>
         </select>
       </div>
       <div className="flex justify-center items-center">

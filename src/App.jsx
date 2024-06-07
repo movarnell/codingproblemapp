@@ -16,7 +16,7 @@ import Footer from "./components/Footer";
 // -database to store your answer.
 
 function App() {
-  const [difficulty, setDifficulty] = useState("very easy");
+  const [difficulty, setDifficulty] = useState("Very Easy");
   const [category, setCategory] = useState("conditionals");
   const [language, setLanguage] = useState("JavaScript");
   const [problem, setProblem] = useState(() => {""});
