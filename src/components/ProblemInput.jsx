@@ -30,9 +30,9 @@ function ProblemInput({
   let thisProblem = JSON.parse(problem);
 
   const testUserAnswer = async (e) => {
+    e.preventDefault();
     console.log("Show user answer:", userAnswer);
 
-    e.preventDefault();
     if (userAnswer.trim()) {
       setResults(null);
       setIsLoading(true);
@@ -141,6 +141,9 @@ function ProblemInput({
 
                     <br /> User Output: {result.actualOutput}
                     <br />
+                    {result.feedback && (
+                      <p className="text-red-500">Feedback: {result.feedback}</p>
+                    )}
                     {console.log("Expected Output:", result.actualOutput)}
                     {console.log("Result:", result)}
                     {thisProblem.testCases[index].result ===
