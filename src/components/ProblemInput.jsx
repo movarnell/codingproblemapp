@@ -30,9 +30,9 @@ function ProblemInput({
   let thisProblem = JSON.parse(problem);
 
   const testUserAnswer = async (e) => {
+    e.preventDefault();
     console.log("Show user answer:", userAnswer);
 
-    e.preventDefault();
     if (userAnswer.trim()) {
       setResults(null);
       setIsLoading(true);
@@ -117,7 +117,7 @@ function ProblemInput({
           Your results will show beside the test case it corresponds to.{" "}
         </p>
         {results && <h3 className="font-bold text-2xl underline">Results:</h3>}
-        <div className="grid grid-cols-3 gap-4 sm:grid-cols-1">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {console.log(results)}
           {results &&
             results.results &&
@@ -141,6 +141,9 @@ function ProblemInput({
 
                     <br /> User Output: {result.actualOutput}
                     <br />
+                    {result.feedback && (
+                      <p className="text-red-500">Feedback: {result.feedback}</p>
+                    )}
                     {console.log("Expected Output:", result.actualOutput)}
                     {console.log("Result:", result)}
                     {thisProblem.testCases[index].result ===
