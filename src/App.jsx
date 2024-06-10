@@ -45,14 +45,14 @@ function App() {
 });
 // NOTE : We need a way to save the users history, that appends to it when they are using the site, and sends it with the problems.
   useEffect(() => {
-    // Save the problem to local storage whenever it changes
-    if (problem) {
-      Cookies.set("problem", JSON.stringify(problem), { expires: 2 });
-    }
-    if (userAnswer) {
-      Cookies.set("userAnswer", JSON.stringify(userAnswer), { expires: 2 });
-    }
-  }, [problem, userAnswer]);
+  // Save the problem to local storage whenever it changes
+  if (problem) {
+    localStorage.setItem("problem", JSON.stringify(problem));
+  }
+  if (userAnswer) {
+    localStorage.setItem("userAnswer", JSON.stringify(userAnswer));
+  }
+}, [problem, userAnswer]);
 
   const [results, setResults] = useState([]);
   const [previousProblems, setPreviousProblems] = useState([
