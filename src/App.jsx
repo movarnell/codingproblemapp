@@ -16,24 +16,41 @@ import Footer from "./components/Footer";
 // -database to store your answer.
 
 function App() {
-  const [difficulty, setDifficulty] = useState("very easy");
+  const [difficulty, setDifficulty] = useState("Very Easy");
   const [category, setCategory] = useState("conditionals");
   const [language, setLanguage] = useState("JavaScript");
-  const [problem, setProblem] = useState(() => {""});
-  // const [problem, setProblem] = useState(() => {
-  //   const savedProblem = Cookies.get("problem");
-  //   return savedProblem ? JSON.parse(savedProblem) : "";
-  // });
-  const [userAnswer, setUserAnswer] = useState("");
-  // const [userAnswer, setUserAnswer] = useState(() => {
-  //   const savedUserAnswer = Cookies.get("userAnswer");
-  //   return savedUserAnswer ? savedUserAnswer : "";
-  // });
+  // const [problem, setProblem] = useState(() => {""});
+  const [problem, setProblem] = useState(() => {
+  const savedProblem = Cookies.get("problem");
+  if (savedProblem) {
+    try {
+      return JSON.parse(savedProblem);
+    } catch (error) {
+      console.error("Error parsing saved problem:", error);
+    }
+  }
+  return {};
+});
+  // const [userAnswer, setUserAnswer] = useState("");
+ const [userAnswer, setUserAnswer] = useState(() => {
+  const savedUserAnswer = Cookies.get("userAnswer");
+  if (savedUserAnswer) {
+    try {
+      return JSON.parse(savedUserAnswer);
+    } catch (error) {
+      console.error("Error parsing saved user answer:", error);
+    }
+  }
+  return "";
+});
 // NOTE : We need a way to save the users history, that appends to it when they are using the site, and sends it with the problems.
   useEffect(() => {
     // Save the problem to local storage whenever it changes
     if (problem) {
       Cookies.set("problem", JSON.stringify(problem), { expires: 2 });
+    }
+    if (userAnswer) {
+      Cookies.set("userAnswer", JSON.stringify(userAnswer), { expires: 2 });
     }
   }, [problem, userAnswer]);
 
