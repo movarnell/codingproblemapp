@@ -25,9 +25,6 @@ function OptionsForm({
           onChange={(e) => setLanguage(e.target.value)}
         >
           <option value="JavaScript">JavaScript</option>
-          <option value="Python">Python</option>
-          <option value="Java">Java</option>
-          <option value="HTML">HTML</option>
           <option disabled>May be more later</option>
 
         </select>

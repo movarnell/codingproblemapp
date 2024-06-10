@@ -4,6 +4,9 @@ import correct from "../assets/right.svg";
 import wrong from "../assets/wrong.svg";
 import Loading from "./Loading";
 import Alert from "./Alert";
+import AceEditor from "react-ace";
+import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/theme-github_dark";
 
 function ProblemInput({
   problem,
@@ -27,8 +30,16 @@ function ProblemInput({
       </div>
     );
   }
-  let thisProblem = JSON.parse(problem);
 
+  //NOTE - Parse problem JSON with error handling in case of invalid JSON
+  let thisProblem = {};
+  try {
+    thisProblem = JSON.parse(problem);
+  } catch (e) {
+    console.log("Error parsing problem:", e);
+  }
+
+  //NOTE - Function to test user answer
   const testUserAnswer = async (e) => {
     e.preventDefault();
     console.log("Show user answer:", userAnswer);
@@ -66,6 +77,7 @@ function ProblemInput({
   };
 
   console.log(results);
+  //INFO - Return the ProblemInput component -----------
   return (
     <div className="container w-10/12 justify-center mx-auto">
       <pre className="whitespace-pre-wrap font-sans mt-5">
@@ -89,9 +101,28 @@ function ProblemInput({
       )}
 
       <strong className="mb-0 mt-5">Your Answer:</strong>
-      <br />
 
-      <textarea
+      {/* <!-- NOTE - START CodeMirror component --> */}
+      <AceEditor
+        mode="javascript"
+        theme="github_dark"
+        name="code"
+        fontSize={14}
+        showPrintMargin={true}
+        showGutter={true}
+        highlightActiveLine={true}
+        value={userAnswer}
+        onChange={(e) => setUserAnswer(e)}
+        style={{ width: "100%", height: "300px" }}
+        setOptions={{
+          showLineNumbers: true,
+          tabSize: 4,
+        }}
+      />
+
+      {/* <!-- NOTE - END CodeMirror component --> */}
+
+      {/* <textarea
         className="border-2 border-black rounded-lg p-1 w-5/6 h-52"
         value={
           userAnswer != "" || userAnswer != null || userAnswer != undefined
@@ -99,13 +130,12 @@ function ProblemInput({
             : "Write your code here..."
         }
         onChange={(e) => setUserAnswer(e.target.value)}
-      />
+      /> */}
       {/* </code>
       </pre> */}
 
-      <br />
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-5 rounded "
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-5 mt-4 rounded "
         onClick={(e) => testUserAnswer(e)}
       >
         Submit
@@ -136,13 +166,14 @@ function ProblemInput({
                     className="mx-1 w-11"
                   />
                   <div>
-                    Case {index+1}: {thisProblem.testCases[index].case}
+                    Case {index + 1}: {thisProblem.testCases[index].case}
                     <br /> Correct Output: {thisProblem.testCases[index].result}
-
                     <br /> User Output: {result.actualOutput}
                     <br />
                     {result.feedback && (
-                      <p className="text-red-500">Feedback: {result.feedback}</p>
+                      <p className="text-red-500">
+                        Feedback: {result.feedback}
+                      </p>
                     )}
                     {console.log("Expected Output:", result.actualOutput)}
                     {console.log("Result:", result)}
