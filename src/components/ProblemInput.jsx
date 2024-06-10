@@ -119,6 +119,7 @@ function ProblemInput({
           highlightActiveLine: false,
           wrap: true,
           cursorStyle: "smooth",
+          showPrintMargin: false,
         }}
       />
 
