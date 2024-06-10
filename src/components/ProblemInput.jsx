@@ -107,16 +107,18 @@ function ProblemInput({
         mode="javascript"
         theme="github_dark"
         name="code"
-        fontSize={14}
+        fontSize={18}
         showPrintMargin={true}
         showGutter={true}
-        highlightActiveLine={true}
         value={userAnswer}
         onChange={(e) => setUserAnswer(e)}
         style={{ width: "100%", height: "300px" }}
         setOptions={{
           showLineNumbers: true,
           tabSize: 4,
+          highlightActiveLine: false,
+          wrap: true,
+          cursorStyle: "smooth",
         }}
       />
 

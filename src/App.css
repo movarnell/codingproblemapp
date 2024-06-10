@@ -27,6 +27,11 @@
   text-align: center;
 }
 
+.loading-front {
+  position: relative; /* or absolute, fixed, or sticky */
+  z-index: 9999; /* any high value */
+}
+
 .alert-loading {
   position: fixed;
 top: 0;
