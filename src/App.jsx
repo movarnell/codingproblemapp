@@ -21,7 +21,7 @@ function App() {
   const [language, setLanguage] = useState("JavaScript");
   // const [problem, setProblem] = useState(() => {""});
   const [problem, setProblem] = useState(() => {
-  const savedProblem = Cookies.get("problem");
+  const savedProblem = localStorage.getItem("problem");
   if (savedProblem) {
     try {
       return JSON.parse(savedProblem);
@@ -33,7 +33,7 @@ function App() {
 });
   // const [userAnswer, setUserAnswer] = useState("");
  const [userAnswer, setUserAnswer] = useState(() => {
-  const savedUserAnswer = Cookies.get("userAnswer");
+  const savedUserAnswer = localStorage.getItem("userAnswer");
   if (savedUserAnswer) {
     try {
       return JSON.parse(savedUserAnswer);
