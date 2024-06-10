@@ -76,8 +76,28 @@ function ProblemInput({
     }
   };
 
+  //NOTE - Setting a try catch on the render for the test cases to reload the page in the even that a test case fails to load
+  const renderTestCases = () => {
+  try {
+    return thisProblem.testCases.map((testCase, index) => (
+      <div key={index}>
+        Case {index + 1}: {testCase.case}
+        <br />
+        Expected Output: {testCase.result}
+        <hr className="my-1 border-black border-1 w-1/3" />
+      </div>
+    ));
+  } catch (error) {
+    console.error("Error rendering test cases:", error);
+    window.location.reload();
+  }
+};
+
+
+
   console.log(results);
-  //INFO - Return the ProblemInput component -----------
+
+  //SECTION - MAIN RETURN
   return (
     <div className="container w-10/12 justify-center mx-auto">
       <pre className="whitespace-pre-wrap font-sans mt-5">
@@ -102,8 +122,9 @@ function ProblemInput({
 
       <strong className="mb-0 mt-5">Your Answer:</strong>
 
-      {/* <!-- NOTE - START CodeMirror component --> */}
+      {/*  NOTE - START CodeMirror component  */}
       <AceEditor
+        className="rounded mt-1 animate-flip-down animate-once animate-duration-[700ms] animate-delay-500 animate-ease-in"
         mode="javascript"
         theme="one_dark"
         name="code"
@@ -112,29 +133,18 @@ function ProblemInput({
         showGutter={true}
         value={userAnswer}
         onChange={(e) => setUserAnswer(e)}
-        style={{ width: "100%", height: "300px" }}
+        style={{ width: "75%", height: "300px" }}
         setOptions={{
           showLineNumbers: true,
           tabSize: 4,
           highlightActiveLine: false,
           wrap: true,
           cursorStyle: "smooth",
+          showPrintMargin: false,
         }}
       />
 
-      {/* <!-- NOTE - END CodeMirror component --> */}
-
-      {/* <textarea
-        className="border-2 border-black rounded-lg p-1 w-5/6 h-52"
-        value={
-          userAnswer != "" || userAnswer != null || userAnswer != undefined
-            ? userAnswer
-            : "Write your code here..."
-        }
-        onChange={(e) => setUserAnswer(e.target.value)}
-      /> */}
-      {/* </code>
-      </pre> */}
+      {/*  NOTE - END CodeMirror component  */}
 
       <button
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-5 mt-4 rounded "
@@ -191,21 +201,16 @@ function ProblemInput({
             })}
         </div>
 
-        <pre className="whitespace-pre-wrap font-sans text-lg font-bold">
-          {!results && <h3 className="font-bold text-2xl underline"></h3>}
-          {!results &&
-            thisProblem.testCases.map(
-              (testCase, index) =>
-                `Case ${index + 1}:  ` +
-                testCase.case +
-                "\n" +
-                `Expected Output:  ` +
-                testCase.result +
-                "\n"
-            )}
+        <pre className="whitespace-pre-wrap font-sans text-lg font-bold mt-2">
+          {!results && (
+            <h3 className="font-bold text-2xl underline">Test Cases</h3>
+          )}
+          {/* NOTE - this render function does error handling for test cases returned with incorrect format and triggers reload.  */}
+          {!results && renderTestCases()}
         </pre>
       </div>
     </div>
   );
+  //!SECTION - MAIN RETURN END
 }
 export default ProblemInput;

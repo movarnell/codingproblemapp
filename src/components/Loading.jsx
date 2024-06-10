@@ -1,6 +1,6 @@
 function Loading({message, submessage}) {
   return (
-    <div className="text-center alert-loading loading-front">
+    <div className="text-center alert-loading loading-front animate-fade animate-once animate-duration-[500ms] animate-ease-in">
       <div className="alert-styles">
         <div className="spinner"></div>
 

@@ -54,10 +54,13 @@ const GenerateProblem = ({
   return (
     <div className="flex align-middle">
       {isLoading && (
-        <Loading message="Generating Problem" submessage="This may take a second..."/>
+        <Loading
+          message="Generating Problem"
+          submessage="This may take a second..."
+        />
       )}
       <button
-        className="bg-gray-700 rounded-xl hover:bg-blue-700 text-white font-bold py-2 px-4 lg:ms-5"
+        className="bg-gray-700 rounded-xl hover:bg-blue-700 text-white font-bold py-2 px-4 lg:ms-5 animate-jump-in animate-once animate-ease-linear animate-1000ms"
         onClick={(e) => executeCode(e)}
       >
         Generate Problem
