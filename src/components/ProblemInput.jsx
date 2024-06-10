@@ -6,7 +6,7 @@ import Loading from "./Loading";
 import Alert from "./Alert";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
-import "ace-builds/src-noconflict/theme-github_dark";
+import "ace-builds/src-noconflict/theme-one_dark";
 
 function ProblemInput({
   problem,
@@ -105,7 +105,7 @@ function ProblemInput({
       {/* <!-- NOTE - START CodeMirror component --> */}
       <AceEditor
         mode="javascript"
-        theme="github_dark"
+        theme="one_dark"
         name="code"
         fontSize={18}
         showPrintMargin={true}
