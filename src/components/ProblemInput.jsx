@@ -89,7 +89,11 @@ function ProblemInput({
     ));
   } catch (error) {
     console.error("Error rendering test cases:", error);
-    window.location.reload();
+    return (
+    <div className="text-xl text-red-600">
+      Oh No! There was an error loading the test cases. Please refresh the page.
+      </div>
+    );
   }
 };
 
@@ -133,7 +137,7 @@ function ProblemInput({
         showGutter={true}
         value={userAnswer}
         onChange={(e) => setUserAnswer(e)}
-        style={{ width: "75%", height: "300px" }}
+        style={{ width: "100%", height: "300px" }}
         setOptions={{
           showLineNumbers: true,
           tabSize: 4,
