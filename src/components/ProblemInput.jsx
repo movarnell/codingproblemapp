@@ -15,7 +15,7 @@ function ProblemInput({
   results,
   setResults,
 }) {
-  console.clear();
+  // console.clear();
   console.log("userAnswer:", userAnswer);
   const codeRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);

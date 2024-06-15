@@ -17,30 +17,31 @@ const GenerateProblem = ({
   useEffect(() => {
     setUserAnswer("");
     setResults(null);
-  }, [difficulty, category, language]);
+    }, [difficulty, category, language]);
 
-  const executeCode = async (e) => {
-    e.preventDefault();
-    setUserAnswer("");
-    setResults(null);
-    setIsLoading(true);
-    try {
-      const response = await axios.post(
-        "https://backend.michaelvarnell.com:8000/generate",
-        {
-          language,
-          category,
-          difficulty,
-          previousProblems,
-        }
-      );
+    const executeCode = async (e) => {
+      e.preventDefault();
+      setUserAnswer("");
+      setResults(null);
+      setIsLoading(true);
+      try {
+        const response = await axios.post(
+          "https://backend.michaelvarnell.com:8000/generate",
+          {
+            language,
+            category,
+            difficulty,
+            previousProblems,
+            }
+            );
 
-      let data = response.data;
-      console.log("Data:", data.problem.content);
+            let data = response.data;
+            console.log("Data:", data.problem.content);
 
+            console.log("Previous Prob in GenerateProblem:", previousProblems)
       let newMessage = {
         role: "assistant",
-        content: "do not repeat problems. Previous Problems: " + previousProblems+ ". " + data.problem.content,
+        content: "do not repeat problems. Previous Problems: " + previousProblems + ". " + data.problem.content,
       };
 
       setPreviousProblems([...previousProblems, newMessage]);

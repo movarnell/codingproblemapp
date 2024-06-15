@@ -36,11 +36,9 @@ function OptionsForm({
           onChange={(e) => setDifficulty(e.target.value)}
           className="text-sm rounded-xl py-0.5 ms-2"
         >
-          <option value="Very Easy">Very Easy</option>
           <option value="Easy">Easy</option>
           <option value="Moderate">Moderate</option>
           <option value="Hard">Hard</option>
-          <option value="Expert">Expert</option>
         </select>
       </div>
       <div className="text-center flex justify-center items-center mb-1 mx-2">
@@ -50,13 +48,13 @@ function OptionsForm({
           className="text-sm rounded-xl py-0.5 ms-2"
           onChange={(e) => setCategory(e.target.value)}
         >
+          <option value="basic fundamentals">Fundamentals</option>
           <option value="conditionals">Conditionals</option>
           <option value="arrays">Arrays</option>
+          <option value="functions">Functions</option>
           <option value="strings">Strings</option>
           <option value="loops">Loops</option>
-          <option value="functions">Functions</option>
           <option value="objects">Objects</option>
-          <option value="math">Math</option>
           <option value="sorting">Sorting</option>
           <option value="totally random topic for problem">RANDOM</option>
         </select>
