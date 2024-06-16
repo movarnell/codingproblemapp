@@ -3,7 +3,7 @@ import OptionsForm from "./components/OptionsForm";
 import ProblemInput from "./components/ProblemInput";
 import Title from "./components/Title";
 import { useState, useEffect } from "react";
-import Cookies from "js-cookie";
+
 import Footer from "./components/Footer";
 
 // https://srv957-files.hstgr.io/d5b13bc378450195/files/public_html/codeProblems/
@@ -43,26 +43,29 @@ function App() {
   }
   return "";
 });
+
+
 // NOTE : We need a way to save the users history, that appends to it when they are using the site, and sends it with the problems.
-  useEffect(() => {
+useEffect(() => {
   // Save the problem to local storage whenever it changes
   if (problem) {
     localStorage.setItem("problem", JSON.stringify(problem));
-  }
-  if (userAnswer) {
-    localStorage.setItem("userAnswer", JSON.stringify(userAnswer));
-  }
-}, [problem, userAnswer]);
+    }
+    if (userAnswer) {
+      localStorage.setItem("userAnswer", JSON.stringify(userAnswer));
+      }
+      }, [problem, userAnswer]);
 
-  const [results, setResults] = useState([]);
-  const [previousProblems, setPreviousProblems] = useState([
-    {
-      role: "system",
-      content: `Make a random problem that hasn't been generated in this session previously. Meet the users promp requirements. Do not provide a solution, only the problem and the test cases. JSON format like {"problem": "description", "testCases": ["case1", "case2", "case3"]}`,
-    },
-  ]);
+      const [results, setResults] = useState([]);
+      const [previousProblems, setPreviousProblems] = useState([
+        {
+          role: "system",
+          content: `Make a random problem that hasn't been generated in this session previously. Meet the users promp requirements. Do not provide a solution, only the problem and the test cases. JSON format like {"problem": "description", "testCases": ["case1", "case2", "case3"]}`,
+          },
+          ]);
 
-  console.log(difficulty, category, language);
+          console.log(difficulty, category, language);
+          console.log("previousProblems", previousProblems);
 
   return (
     <>
