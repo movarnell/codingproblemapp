@@ -178,7 +178,7 @@ function ProblemInput({
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-5 mt-4 rounded "
         onClick={(e) => testUserAnswer(e)}
       >
-        Submit
+        🎯 Submit
       </button>
       <br />
 
