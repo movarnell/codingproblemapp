@@ -11,11 +11,9 @@ function Title() {
         />
       </div>
 
-      <p className="text-base text-center text-red-500 font-bold italic">
-        I am still working with the AI to get reliable results. At the moment
-        most of the time it is providing correct results. Sometimes it may not.
-        <br />
-        Apologies if you encounter any issues. This is a free service. If you
+      <p className="text-base text-center text-white font-bold italic">
+       <br />
+        If you
         would like to support me, please consider buying me a coffee. <br />
         <span className="text-white text-base">
           If you would like to provide feedback email me at
