@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Loading from "./Loading";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const GenerateProblem = ({
   difficulty,
@@ -14,6 +16,8 @@ const GenerateProblem = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false);
 
+
+
   useEffect(() => {
     setUserAnswer("");
     setResults(null);
@@ -21,6 +25,13 @@ const GenerateProblem = ({
 
     const executeCode = async (e) => {
       e.preventDefault();
+      toast.success("Generating Problem...", {
+        icon: "🤔",
+        autoClose: 5000,
+        closeOnClick: true,
+      });
+
+
       setUserAnswer("");
       setResults(null);
       setIsLoading(true);
@@ -32,8 +43,9 @@ const GenerateProblem = ({
             category,
             difficulty,
             previousProblems,
-            }
-            );
+          },
+          { timeout: 6000}
+        );
 
             let data = response.data;
             console.log("Data:", data.problem.content);
@@ -46,22 +58,33 @@ const GenerateProblem = ({
 
       setPreviousProblems([...previousProblems, newMessage]);
       setProblem(data.problem.content);
-      setIsLoading(false);
+      toast.dismiss();
     } catch (error) {
       console.error("Error executing code:", error);
+      setIsLoading(false);
+
+      toast.error(
+        "Error generating problem. Please try again after a few seconds.",
+        {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        }
+      );
     }
   };
 
   return (
     <div className="flex align-middle">
-      {isLoading && (
-        <Loading
-          message="Generating Problem"
-          submessage="This may take a second..."
-        />
-      )}
+
       <button
-        className="bg-gray-700 rounded-xl hover:bg-blue-700 text-white font-bold py-2 px-4 lg:ms-5 animate-jump-in animate-once animate-ease-linear animate-1000ms"
+        className="bg-gray-500 rounded-xl hover:bg-red-700 text-white font-bold py-2 px-4 lg:ms-5 animate-jump-in animate-once animate-ease-linear animate-1000ms"
         onClick={(e) => executeCode(e)}
       >
         Generate Problem

@@ -1,4 +1,4 @@
-import titleGraphic from "../assets/titlegraphic.png";
+import titleGraphic from "../assets/CPBeta.png";
 
 function Title() {
   return (
@@ -6,7 +6,7 @@ function Title() {
       <div className="text-center">
         <img
           src={titleGraphic}
-          alt="title graphic"
+          alt="Code Problems Beta Title Graphic"
           className="w-full max-title-graphic"
         />
       </div>
@@ -17,7 +17,7 @@ function Title() {
         <br />
         Apologies if you encounter any issues. This is a free service. If you
         would like to support me, please consider buying me a coffee. <br />
-        <span className="text-black text-base">
+        <span className="text-white text-base">
           If you would like to provide feedback email me at
           michaelvarnell@icloud.com
         </span>

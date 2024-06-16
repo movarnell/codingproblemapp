@@ -7,6 +7,7 @@ import Alert from "./Alert";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-one_dark";
+import {toast} from "react-toastify";
 
 function ProblemInput({
   problem,
@@ -46,7 +47,11 @@ function ProblemInput({
 
     if (userAnswer.trim()) {
       setResults(null);
-      setIsLoading(true);
+      toast.success("Running your code...", {
+        icon: "🚀",
+        autoClose: 5000,
+        closeOnClick: true,
+      });
 
       try {
         console.log("Problem:", problem);
@@ -63,13 +68,17 @@ function ProblemInput({
         console.log("Data:", data);
 
         setResults(data);
-        setIsLoading(false);
+        toast.dismiss();
       } catch (error) {
-        setIsLoading(false);
+
         console.error("Error executing code:", error);
-        setIssue(
-          "There was an error running your code or with the connection to our server. Please refresh the page and try again."
+        toast.error("Error running your code. Please try again in a couple seconds.",{
+          autoClose: 3000,
+          closeOnClick: true,
+          hideProgressBar: true,
+        }
         );
+
       }
     } else {
       setUserAnswerAlert(true);
@@ -84,15 +93,17 @@ function ProblemInput({
         Case {index + 1}: {testCase.case}
         <br />
         Expected Output: {testCase.result}
-        <hr className="my-1 border-black border-1 w-1/3" />
+        <hr className="my-1 border-white border-1 w-1/3" />
       </div>
     ));
   } catch (error) {
     console.error("Error rendering test cases:", error);
-    return (
-    <div className="text-xl text-red-600">
-      Oh No! There was an error loading the test cases. Please refresh the page.
-      </div>
+    toast.error("Error rendering test cases. Please try again in a couple seconds.",{
+      autoClose: 3000,
+      closeOnClick: true,
+      hideProgressBar: true,
+    }
+
     );
   }
 };
@@ -128,7 +139,7 @@ function ProblemInput({
 
       {/*  NOTE - START CodeMirror component  */}
       <AceEditor
-        className="rounded mt-1 animate-flip-down animate-once animate-duration-[700ms] animate-delay-500 animate-ease-in"
+        className="rounded mt-1 animate-flip-down animate-once animate-duration-[700ms] animate-delay-500 animate-ease-in border border-gray-500"
         mode="javascript"
         theme="one_dark"
         name="code"
