@@ -72,11 +72,18 @@ function ProblemInput({
       } catch (error) {
 
         console.error("Error executing code:", error);
-        toast.error("Error running your code. Please try again in a couple seconds.",{
-          autoClose: 3000,
-          closeOnClick: true,
-          hideProgressBar: true,
-        }
+        toast.error(
+          "Error running your code. Please try again in a couple seconds.",
+          {
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+            theme: "colored",
+            transition: Flip,
+          }
         );
 
       }
@@ -98,12 +105,18 @@ function ProblemInput({
     ));
   } catch (error) {
     console.error("Error rendering test cases:", error);
-    toast.error("Error rendering test cases. Please try again in a couple seconds.",{
-      autoClose: 3000,
-      closeOnClick: true,
-      hideProgressBar: true,
-    }
-
+    toast.error(
+      "Error rendering test cases. Please try again in a couple seconds.",
+      {
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+        transition: Flip,
+      }
     );
   }
 };

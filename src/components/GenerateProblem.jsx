@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Loading from "./Loading";
-import { toast } from "react-toastify";
+import { Flip, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const GenerateProblem = ({
@@ -28,7 +28,13 @@ const GenerateProblem = ({
       toast.success("Generating Problem...", {
         icon: "🤔",
         autoClose: 5000,
+        hideProgressBar: false,
         closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+        transition: Flip,
       });
 
 
