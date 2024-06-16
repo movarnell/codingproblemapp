@@ -88,12 +88,11 @@ const GenerateProblem = ({
 
   return (
     <div className="flex align-middle">
-
       <button
-        className="bg-gray-500 rounded-xl hover:bg-red-700 text-white font-bold py-2 px-4 lg:ms-5 animate-jump-in animate-once animate-ease-linear animate-1000ms"
+        className="bg-gray-500 rounded-xl hover:bg-red-700 text-white font-bold py-0.5 px-4 mb-1 lg:ms-5 animate-jump-in animate-once animate-ease-linear animate-1000ms"
         onClick={(e) => executeCode(e)}
       >
-        Generate Problem
+        🚀 Generate Problem
       </button>
     </div>
   );
