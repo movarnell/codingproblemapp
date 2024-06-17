@@ -7,7 +7,7 @@ import Alert from "./Alert";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-one_dark";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 function ProblemInput({
   problem,
@@ -69,7 +69,6 @@ function ProblemInput({
         setResults(data);
         toast.dismiss();
       } catch (error) {
-
         console.error("Error executing code:", error);
         toast.error(
           "Error running your code. Please try again in a couple seconds.",
@@ -83,7 +82,6 @@ function ProblemInput({
             theme: "colored",
           }
         );
-
       }
     } else {
       setUserAnswerAlert(true);
@@ -92,39 +90,38 @@ function ProblemInput({
 
   //NOTE - Setting a try catch on the render for the test cases to reload the page in the even that a test case fails to load
   const renderTestCases = () => {
-  try {
-    return thisProblem.testCases.map((testCase, index) => (
-      <div key={index}>
-        Case {index + 1}: {testCase.case}
-        <br />
-        Expected Output: {testCase.result}
-        <hr className="my-1 border-white border-1 w-1/3" />
-      </div>
-    ));
-  } catch (error) {
-    console.error("Error rendering test cases:", error);
-    toast.error(
-      "Error rendering test cases. Please try again in a couple seconds.",
-      {
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-        theme: "colored",
-      }
-    );
-  }
-};
-
-
+    try {
+      return thisProblem.testCases.map((testCase, index) => (
+        <div key={index}>
+          Case {index + 1}: {testCase.case}
+          <br />
+          Expected Output: {testCase.result}
+          <hr className="my-1 border-white border-1 w-1/3" />
+        </div>
+      ));
+    } catch (error) {
+      console.error("Error rendering test cases:", error);
+      toast.error(
+        "Error rendering test cases. Please try again in a couple seconds.",
+        {
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+          theme: "colored",
+        }
+      );
+    }
+  };
 
   console.log(results);
+  console.log(userAnswer);
 
   //SECTION - MAIN RETURN
   return (
-    <div className="container w-10/12 justify-center mx-auto">
+    <div className="container w-full justify-center mx-auto">
       <pre className="whitespace-pre-wrap font-sans mt-5">
         <strong>PROBLEM: </strong> {issue && issue}
         {thisProblem.problem}
@@ -139,22 +136,22 @@ function ProblemInput({
         />
       )}
 
-
       <strong className="mb-0 mt-5">Your Answer:</strong>
 
-      {/*  NOTE - START CodeMirror component  */}
+      {/*  NOTE - START AceEditor component  */}
       <AceEditor
-        className="rounded mt-1 animate-flip-down animate-once animate-duration-[700ms] animate-delay-500 animate-ease-in border border-gray-500 resize"
+        className="rounded mt-1 animate-flip-down animate-once animate-duration-[700ms] animate-delay-500 animate-ease-in border border-gray-500 resize w-full"
         mode="javascript"
         theme="one_dark"
         name="code"
         fontSize={18}
-
         showPrintMargin={true}
         showGutter={true}
         value={userAnswer}
+        width="100%"
+        height="300px"
+        placeholder="Write your code here..."
         onChange={(e) => setUserAnswer(e)}
-        style={{ width: "100%", height: "300px" }}
         setOptions={{
           showLineNumbers: true,
           tabSize: 4,
@@ -165,7 +162,7 @@ function ProblemInput({
         }}
       />
 
-      {/*  NOTE - END CodeMirror component  */}
+      {/*  NOTE - END AceEditor component  */}
 
       <button
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-5 mt-4 rounded "
@@ -190,12 +187,7 @@ function ProblemInput({
               return (
                 <div key={index} className="text-lg flex align-middle">
                   <img
-                    src={
-                      thisProblem.testCases[index].result ===
-                      result.actualOutput
-                        ? correct
-                        : wrong
-                    }
+                    src={result.passed ? correct : wrong}
                     className="mx-1 w-11"
                   />
                   <div>
@@ -208,10 +200,9 @@ function ProblemInput({
                         Feedback: {result.feedback}
                       </p>
                     )}
-                    {console.log("Expected Output:", result.actualOutput)}
+                    {console.log("Actual Output:", result.actualOutput)}
                     {console.log("Result:", result)}
-                    {thisProblem.testCases[index].result ===
-                    result.actualOutput ? (
+                    {result.passed ? (
                       <p className="text-green-500"> Passed </p>
                     ) : (
                       <p className="text-red-500"> Failed </p>

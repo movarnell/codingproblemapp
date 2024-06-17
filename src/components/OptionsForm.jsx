@@ -75,14 +75,13 @@ function OptionsForm({
         </div>
       </form>
       {category === "loops" && (
-        <div className="mx-auto px-10">
-          <p className="text-sm flex">
+        <div className="mx-auto w-2/4 border border-gray-400 rounded-lg p-3 bg-slate-700">
+          <p className="text-sm flex items-center">
             <strong>
               <img className="me-12" src={alert} alt="Alert icon" width={40} />{" "}
             </strong>{" "}
             Loops problems may be picky about the exact output. If you're having
-            trouble, Check to see if the expected output matches your output, if
-            it does then consider it correct until we get this fixed. Thanks!
+            trouble, Check to see if the expected output matches your output, if it matches then you are correct. If it doesn't match, try again.
           </p>
         </div>
       )}
