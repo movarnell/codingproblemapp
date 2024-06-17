@@ -32,7 +32,7 @@ const GenerateProblem = ({
         draggable: false,
         progress: undefined,
         theme: "colored",
-        transition: Flip,
+        
       });
 
 
@@ -78,7 +78,7 @@ const GenerateProblem = ({
           draggable: false,
           progress: undefined,
           theme: "dark",
-          transition: Flip,
+
         }
       );
     }
