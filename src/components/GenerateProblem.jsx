@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Loading from "./Loading";
-import { Flip, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const GenerateProblem = ({
@@ -14,7 +13,6 @@ const GenerateProblem = ({
   setResults,
   setUserAnswer,
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
 
 
 
@@ -80,7 +78,7 @@ const GenerateProblem = ({
           draggable: false,
           progress: undefined,
           theme: "dark",
-          transition: Bounce,
+          transition: Flip,
         }
       );
     }
