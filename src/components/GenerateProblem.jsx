@@ -32,13 +32,12 @@ const GenerateProblem = ({
         draggable: false,
         progress: undefined,
         theme: "colored",
-        
+
       });
 
 
       setUserAnswer("");
       setResults(null);
-      setIsLoading(true);
       try {
         const response = await axios.post(
           "https://backend.michaelvarnell.com:8000/generate",
@@ -65,7 +64,6 @@ const GenerateProblem = ({
       toast.dismiss();
     } catch (error) {
       console.error("Error executing code:", error);
-      setIsLoading(false);
 
       toast.error(
         "Error generating problem. Please try again after a few seconds.",

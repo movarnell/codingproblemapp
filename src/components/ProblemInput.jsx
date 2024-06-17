@@ -19,7 +19,6 @@ function ProblemInput({
   // console.clear();
   console.log("userAnswer:", userAnswer);
   const codeRef = useRef(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [userAnswerAlert, setUserAnswerAlert] = useState(false);
   const [issue, setIssue] = useState("");
 
@@ -139,12 +138,7 @@ function ProblemInput({
           alertMessage="Please write your code before submitting."
         />
       )}
-      {isLoading && (
-        <Loading
-          message="Running your code..."
-          submessage="This may take a moment"
-        />
-      )}
+  
 
       <strong className="mb-0 mt-5">Your Answer:</strong>
 
