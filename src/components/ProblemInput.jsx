@@ -82,7 +82,6 @@ function ProblemInput({
             draggable: false,
             progress: undefined,
             theme: "colored",
-            transition: Flip,
           }
         );
 
@@ -115,7 +114,6 @@ function ProblemInput({
         draggable: false,
         progress: undefined,
         theme: "colored",
-        transition: Flip,
       }
     );
   }
