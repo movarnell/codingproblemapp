@@ -138,17 +138,18 @@ function ProblemInput({
           alertMessage="Please write your code before submitting."
         />
       )}
-  
+
 
       <strong className="mb-0 mt-5">Your Answer:</strong>
 
       {/*  NOTE - START CodeMirror component  */}
       <AceEditor
-        className="rounded mt-1 animate-flip-down animate-once animate-duration-[700ms] animate-delay-500 animate-ease-in border border-gray-500"
+        className="rounded mt-1 animate-flip-down animate-once animate-duration-[700ms] animate-delay-500 animate-ease-in border border-gray-500 resize"
         mode="javascript"
         theme="one_dark"
         name="code"
         fontSize={18}
+
         showPrintMargin={true}
         showGutter={true}
         value={userAnswer}
