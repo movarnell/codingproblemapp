@@ -21,8 +21,16 @@ const GenerateProblem = ({
     setResults(null);
     }, [difficulty, category, language]);
 
+
+    function sanitizeJSON(jsonString) {
+      // Replace invalid control characters
+      return jsonString.replace(/[\u0000-\u001F\u007F-\u009F]/g, "");
+    }
+
+
     const executeCode = async (e) => {
       e.preventDefault();
+      //INFO Toast Notification
       toast.success("Generating Problem...", {
         icon: "🤔",
         autoClose: 5000,
@@ -36,8 +44,6 @@ const GenerateProblem = ({
       });
 
 
-      setUserAnswer("");
-      setResults(null);
       try {
         const response = await axios.post(
           "https://backend.michaelvarnell.com:8000/generate",
@@ -50,18 +56,26 @@ const GenerateProblem = ({
           { timeout: 6000}
         );
 
-            let data = response.data;
-            console.log("Data:", data.problem.content);
+        let data = response.data;
+        console.log("Data:", data.problem.content);
 
-            console.log("Previous Prob in GenerateProblem:", previousProblems)
-      let newMessage = {
-        role: "assistant",
-        content: "do not repeat problems. Previous Problems: " + previousProblems + ". " + data.problem.content,
-      };
+        console.log("Previous Prob in GenerateProblem:", previousProblems)
+        let newMessage = {
+          role: "assistant",
+          content: "do not repeat problems. Previous Problems: " + previousProblems + ". " + data.problem.content,
+        };
+        // validate json return from backend
+        if (!data.problem.content) {
+          throw new Error("Invalid problem JSON returned from backend");
+        } else {
+          console.log("Valid Data:", data.problem.content);
+        }
+        setUserAnswer("");
+        setResults(null);
 
-      setPreviousProblems([...previousProblems, newMessage]);
-      setProblem(data.problem.content);
-      toast.dismiss();
+        setPreviousProblems([...previousProblems, newMessage]);
+        setProblem(data.problem.content);
+        toast.dismiss();
     } catch (error) {
       console.error("Error executing code:", error);
 

@@ -20,7 +20,7 @@ function OptionsForm({
     <div>
       <form className="p-5 text-base mx-auto flex justify-center flex-col lg:flex-row ">
         {" "}
-        <div className="text-center flex justify-center items-center mb-1 mx-2">
+        {/* <div className="text-center flex justify-center items-center mb-1 mx-2">
           <label className="font-bold">Language: </label>
           <select
             name="language"
@@ -30,8 +30,8 @@ function OptionsForm({
             <option value="JavaScript">JavaScript</option>
             <option disabled>May be more later</option>
           </select>
-        </div>
-        <div className="text-center flex justify-center items-center mb-1 mx-2">
+        </div> */}
+        {/* <div className="text-center flex justify-center items-center mb-1 mx-2">
           <label className="font-bold">Difficulty: </label>
           <select
             name="difficulty"
@@ -42,7 +42,7 @@ function OptionsForm({
             <option value="Moderate">Moderate</option>
             <option value="Hard">Hard</option>
           </select>
-        </div>
+        </div> */}
         <div className="text-center flex justify-center items-center mb-1 mx-2">
           <label className="font-bold">Category: </label>
           <select
@@ -61,7 +61,7 @@ function OptionsForm({
             <option value="totally random topic for problem">RANDOM</option>
           </select>
         </div>
-        <div className="flex justify-center items-center">
+        <div className="flex mt-3 justify-center items-center">
           <GenerateProblem
             difficulty={difficulty}
             category={category}
