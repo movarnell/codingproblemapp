@@ -56,9 +56,6 @@ function OptionsForm({
             <option value="functions">Functions</option>
             <option value="strings">Strings</option>
             <option value="loops">Loops</option>
-            <option value="objects">Objects</option>
-            <option value="sorting">Sorting</option>
-            <option value="totally random topic for problem">RANDOM</option>
           </select>
         </div>
         <div className="flex mt-3 justify-center items-center">
