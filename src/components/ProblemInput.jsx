@@ -17,12 +17,13 @@ function ProblemInput({
   setResults,
 }) {
   // console.clear();
-  console.log("userAnswer:", userAnswer);
+  if(userAnswer) console.log("userAnswer:", userAnswer); //NOTE - console log for debugging
+
   const codeRef = useRef(null);
   const [userAnswerAlert, setUserAnswerAlert] = useState(false);
   const [issue, setIssue] = useState("");
 
-  console.log(problem);
+  // console.log(problem);
   if (!problem) {
     return (
       <div>
@@ -32,11 +33,11 @@ function ProblemInput({
   }
 
   //NOTE - Parse problem JSON with error handling in case of invalid JSON
-  let thisProblem = {};
+  let thisProblem = null;
   try {
     thisProblem = JSON.parse(problem);
-  } catch (e) {
-    console.log("Error parsing problem:", e);
+  } catch (error) {
+    console.error("Error parsing problem JSON:", error.message);
   }
 
   //NOTE - Function to test user answer
@@ -89,6 +90,7 @@ function ProblemInput({
   };
 
   //NOTE - Setting a try catch on the render for the test cases to reload the page in the even that a test case fails to load
+
   const renderTestCases = () => {
     try {
       return thisProblem.testCases.map((testCase, index) => (
@@ -101,6 +103,7 @@ function ProblemInput({
       ));
     } catch (error) {
       console.error("Error rendering test cases:", error);
+      console.log("thisProblem:", thisProblem); //NOTE - this is to help debug the issue
       toast.error(
         "Error rendering test cases. Please try again in a couple seconds.",
         {
@@ -116,8 +119,8 @@ function ProblemInput({
     }
   };
 
-  console.log(results);
-  console.log(userAnswer);
+  // console.log(results);
+  // console.log(userAnswer);
 
   //SECTION - MAIN RETURN
   return (
@@ -176,9 +179,15 @@ function ProblemInput({
         <p className="font-normal">
           Your results will show beside the test case it corresponds to.{" "}
         </p>
+          {results && results.feedback && (
+            <div className="text-lg">
+              <h3 className="font-bold text-2xl underline">Feedback:</h3>
+              <p>{results.feedback}</p>
+            </div>
+          )}
         {results && <h3 className="font-bold text-2xl underline">Results:</h3>}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          {console.log(results)}
+          {/* {console.log(results)} */}
           {results &&
             results.results &&
             Array.isArray(results.results) &&
@@ -218,7 +227,9 @@ function ProblemInput({
             <h3 className="font-bold text-2xl underline">Test Cases</h3>
           )}
           {/* NOTE - this render function does error handling for test cases returned with incorrect format and triggers reload.  */}
-          {!results && renderTestCases()}
+          {/* {!results && renderTestCases()} */}
+          {!results && thisProblem.testCases && renderTestCases()}
+
         </pre>
       </div>
     </div>
