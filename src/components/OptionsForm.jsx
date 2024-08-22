@@ -18,9 +18,9 @@ function OptionsForm({
   // Menu providing dropdown options to choose: Language, Difficulty, Category
   return (
     <div>
-      <form className="p-5 text-base mx-auto flex justify-center flex-col lg:flex-row ">
+      <form className="flex flex-col justify-center p-5 mx-auto text-base lg:flex-row ">
         {" "}
-        {/* <div className="text-center flex justify-center items-center mb-1 mx-2">
+        <div className="flex items-center justify-center mx-2 mb-1 text-center">
           <label className="font-bold">Language: </label>
           <select
             name="language"
@@ -30,8 +30,8 @@ function OptionsForm({
             <option value="JavaScript">JavaScript</option>
             <option disabled>May be more later</option>
           </select>
-        </div> */}
-        {/* <div className="text-center flex justify-center items-center mb-1 mx-2">
+        </div>
+        <div className="flex items-center justify-center mx-2 mb-1 text-center">
           <label className="font-bold">Difficulty: </label>
           <select
             name="difficulty"
@@ -42,8 +42,8 @@ function OptionsForm({
             <option value="Moderate">Moderate</option>
             <option value="Hard">Hard</option>
           </select>
-        </div> */}
-        <div className="text-center flex justify-center items-center mb-1 mx-2">
+        </div>
+        <div className="flex items-center justify-center mx-2 mb-1 text-center">
           <label className="font-bold">Category: </label>
           <select
             name="category"
@@ -58,7 +58,7 @@ function OptionsForm({
             <option value="loops">Loops</option>
           </select>
         </div>
-        <div className="flex mt-3 justify-center items-center">
+        <div className="flex items-center justify-center mt-3">
           <GenerateProblem
             difficulty={difficulty}
             category={category}
@@ -72,8 +72,8 @@ function OptionsForm({
         </div>
       </form>
       {category === "loops" && (
-        <div className="mx-auto w-2/4 border border-gray-400 rounded-lg p-3 bg-slate-700">
-          <p className="text-sm flex items-center">
+        <div className="w-2/4 p-3 mx-auto border border-gray-400 rounded-lg bg-slate-700">
+          <p className="flex items-center text-sm">
             <strong>
               <img className="me-12" src={alert} alt="Alert icon" width={40} />{" "}
             </strong>{" "}
