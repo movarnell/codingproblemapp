@@ -40,6 +40,17 @@ function ProblemInput({
   } catch (error) {
     console.error("Error parsing problem JSON:", error.message);
   }
+  } else {
+    thisProblem = {
+      "problem": "Create a function that checks if a given year is a leap year. A year is a leap year if: 1) It is divisible by 4; 2) However, if it is divisible by 100, it should also be divisible by 400 to be considered a leap year. The function should return a boolean value: true if the year is a leap year, and false otherwise.",
+      "testCases": [
+        {"case": "2000", "result": true},
+        {"case": "1900", "result": false},
+        {"case": "2024", "result": true},
+        {"case": "2019", "result": false},
+        {"case": "1600", "result": true}
+      ]
+    };
   }
   //NOTE - Function to test user answer
   const testUserAnswer = async (e) => {
@@ -228,8 +239,9 @@ function ProblemInput({
             <h3 className="text-2xl font-bold underline">Test Cases</h3>
           )}
           {/* NOTE - this render function does error handling for test cases returned with incorrect format and triggers reload.  */}
-          {!results && renderTestCases()}
-          {/* {!results && thisProblem.testCases && renderTestCases()} */}
+          {/* {!results && renderTestCases()} */}
+          {console.log(thisProblem)}
+          {!results && thisProblem.testCases && renderTestCases()}
 
         </pre>
       </div>
