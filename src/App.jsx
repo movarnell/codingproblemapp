@@ -12,12 +12,16 @@ function App() {
   const [language, setLanguage] = useState("JavaScript");
   //NOTE - initialized problem state with a function to get the saved problem from local storage if there is one.
   const [problem, setProblem] = useState(() => {
+    if (localStorage.getItem("problem")) {
     const savedProblem = localStorage.getItem("problem")
     if (savedProblem !== null && savedProblem !== undefined) {
+      if(JSON.parse(savedProblem)) {
         return JSON.parse(savedProblem);
       }
     }
-  );
+  }
+  });
+
 
   //NOTE - initialized userAnswer state with a function to get the saved user answer from local storage if there is one.
   const [userAnswer, setUserAnswer] = useState(() => {
