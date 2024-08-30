@@ -236,7 +236,7 @@ try {
           {/* NOTE - this render function does error handling for test cases returned with incorrect format and triggers reload.  */}
           {/* {!results && renderTestCases()} */}
           {console.log(thisProblem)}
-          {!results && thisProblem.testCases && renderTestCases()}
+          {!results && thisProblem != undefined && thisProblem.testCases && renderTestCases()}
 
         </pre>
       </div>
