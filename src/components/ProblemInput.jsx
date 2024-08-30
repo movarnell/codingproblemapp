@@ -43,30 +43,10 @@ try {
   }
 } catch (error) {
   console.error("Error parsing problem JSON:", error.message);
-   thisProblem = {
-    "problem": "Create a function that checks if a given year is a leap year...",
-    "testCases": [
-      {"case": "2000", "result": true},
-      {"case": "1900", "result": false},
-      {"case": "2024", "result": true},
-      {"case": "2019", "result": false},
-      {"case": "1600", "result": true}
-    ]
-  };
+
 }
 
-if (!thisProblem) {
-  thisProblem = {
-    "problem": "Create a function that checks if a given year is a leap year...",
-    "testCases": [
-      {"case": "2000", "result": true},
-      {"case": "1900", "result": false},
-      {"case": "2024", "result": true},
-      {"case": "2019", "result": false},
-      {"case": "1600", "result": true}
-    ]
-  };
-}
+
   //NOTE - Function to test user answer
   const testUserAnswer = async (e) => {
     e.preventDefault();
