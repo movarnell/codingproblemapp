@@ -12,20 +12,9 @@ function App() {
   const [language, setLanguage] = useState("JavaScript");
   //NOTE - initialized problem state with a function to get the saved problem from local storage if there is one.
   const [problem, setProblem] = useState(() => {
-    const savedProblem = localStorage.getItem("problem") || {
-      "problem": "Create a function that checks if a given year is a leap year. A year is a leap year if: 1) It is divisible by 4; 2) However, if it is divisible by 100, it should also be divisible by 400 to be considered a leap year. The function should return a boolean value: true if the year is a leap year, and false otherwise.",
-      "testCases": [
-        {"case": "2000", "result": true},
-        {"case": "1900", "result": false},
-        {"case": "2024", "result": true},
-        {"case": "2019", "result": false},
-        {"case": "1600", "result": true}
-      ]
-    };
-    if (savedProblem) {
+    const savedProblem = localStorage.getItem("problem")
+    if (savedProblem !== null && savedProblem !== undefined) {
         return JSON.parse(savedProblem);
-      } else {
-        return "";
       }
     }
   );
@@ -50,7 +39,7 @@ function App() {
     },
   ]);
 
-  
+
   // Save the problem to local storage whenever it changes
   useEffect(() => {
     if (problem) {
