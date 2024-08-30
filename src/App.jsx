@@ -14,14 +14,13 @@ function App() {
   const [problem, setProblem] = useState(() => {
     const savedProblem = localStorage.getItem("problem");
     if (savedProblem) {
-      try {
         return JSON.parse(savedProblem);
-      } catch (error) {
-        console.error("Error parsing saved problem:", error);
+      } else {
+        return "";
       }
     }
-    return {};
-  });
+  );
+  
   //NOTE - initialized userAnswer state with a function to get the saved user answer from local storage if there is one.
   const [userAnswer, setUserAnswer] = useState(() => {
     const savedUserAnswer = localStorage.getItem("userAnswer");
@@ -58,7 +57,7 @@ function App() {
 
   return (
     <>
-      <div className="pb-40 bg-gray-800 text-white">
+      <div className="pb-40 text-white bg-gray-800">
         <ToastContainer theme="colored" position="bottom-center" />
         <Title />
         <OptionsForm
@@ -74,9 +73,9 @@ function App() {
           setUserAnswer={setUserAnswer}
           setResults={setResults}
         />
-        <div className="container-fluid flex flex-wrap items-center justify-center">
+        <div className="flex flex-wrap items-center justify-center container-fluid">
           {" "}
-          <div className="row  my-5">
+          <div className="my-5 row">
             {!problem && (
               <div className="px-3">
                 <h2 className="text-xl font-bold">How this works</h2>
@@ -97,10 +96,10 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="text-center mt-20">
+        <div className="mt-20 text-center">
           <a
             href="www.helpcodeit.com"
-            className=" text-center text-xl text-white font-bold hover:underline "
+            className="text-xl font-bold text-center text-white hover:underline"
           >
             Back to HelpCodeIt.com
           </a>

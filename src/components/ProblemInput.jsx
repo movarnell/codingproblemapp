@@ -23,7 +23,7 @@ function ProblemInput({
   const [userAnswerAlert, setUserAnswerAlert] = useState(false);
   const [issue, setIssue] = useState("");
 
-  // console.log(problem);
+  console.log(problem);
   if (!problem) {
     return (
       <div>
@@ -34,12 +34,13 @@ function ProblemInput({
 
   //NOTE - Parse problem JSON with error handling in case of invalid JSON
   let thisProblem = null;
+  if(thisProblem != null){
   try {
     thisProblem = JSON.parse(problem);
   } catch (error) {
     console.error("Error parsing problem JSON:", error.message);
   }
-
+  }
   //NOTE - Function to test user answer
   const testUserAnswer = async (e) => {
     e.preventDefault();
@@ -98,7 +99,7 @@ function ProblemInput({
           Case {index + 1}: {testCase.case}
           <br />
           Expected Output: {testCase.result}
-          <hr className="my-1 border-white border-1 w-1/3" />
+          <hr className="w-1/3 my-1 border-white border-1" />
         </div>
       ));
     } catch (error) {
@@ -124,10 +125,10 @@ function ProblemInput({
 
   //SECTION - MAIN RETURN
   return (
-    <div className="container w-full justify-center mx-auto">
-      <pre className="whitespace-pre-wrap font-sans mt-5">
+    <div className="container justify-center w-full mx-auto">
+      <pre className="mt-5 font-sans whitespace-pre-wrap">
         <strong>PROBLEM: </strong> {issue && issue}
-        {thisProblem.problem}
+        {thisProblem && thisProblem.problem}
       </pre>
 
       <br />
@@ -139,7 +140,7 @@ function ProblemInput({
         />
       )}
 
-      <strong className="mb-0 mt-5">Your Answer:</strong>
+      <strong className="mt-5 mb-0">Your Answer:</strong>
 
       {/*  NOTE - START AceEditor component  */}
       <AceEditor
@@ -168,7 +169,7 @@ function ProblemInput({
       {/*  NOTE - END AceEditor component  */}
 
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-5 mt-4 rounded "
+        className="px-4 py-2 mt-4 mb-5 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 "
         onClick={(e) => testUserAnswer(e)}
       >
         🎯 Submit
@@ -181,11 +182,11 @@ function ProblemInput({
         </p>
           {results && results.feedback && (
             <div className="text-lg">
-              <h3 className="font-bold text-2xl underline">Feedback:</h3>
+              <h3 className="text-2xl font-bold underline">Feedback:</h3>
               <p>{results.feedback}</p>
             </div>
           )}
-        {results && <h3 className="font-bold text-2xl underline">Results:</h3>}
+        {results && <h3 className="text-2xl font-bold underline">Results:</h3>}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {/* {console.log(results)} */}
           {results &&
@@ -194,7 +195,7 @@ function ProblemInput({
             results.results.map((result, index) => {
               console.log(result, index);
               return (
-                <div key={index} className="text-lg flex align-middle">
+                <div key={index} className="flex text-lg align-middle">
                   <img
                     src={result.passed ? correct : wrong}
                     className="mx-1 w-11"
@@ -222,13 +223,13 @@ function ProblemInput({
             })}
         </div>
 
-        <pre className="whitespace-pre-wrap font-sans text-lg font-bold mt-2">
+        <pre className="mt-2 font-sans text-lg font-bold whitespace-pre-wrap">
           {!results && (
-            <h3 className="font-bold text-2xl underline">Test Cases</h3>
+            <h3 className="text-2xl font-bold underline">Test Cases</h3>
           )}
           {/* NOTE - this render function does error handling for test cases returned with incorrect format and triggers reload.  */}
-          {/* {!results && renderTestCases()} */}
-          {!results && thisProblem.testCases && renderTestCases()}
+          {!results && renderTestCases()}
+          {/* {!results && thisProblem.testCases && renderTestCases()} */}
 
         </pre>
       </div>
