@@ -33,25 +33,31 @@ function ProblemInput({
   }
 
   //NOTE - Parse problem JSON with error handling in case of invalid JSON
-  let thisProblem = null;
-  if(thisProblem != null){
-  try {
+  let thisProblem;
+
+try {
+  if (typeof problem === "string") {
     thisProblem = JSON.parse(problem);
-  } catch (error) {
-    console.error("Error parsing problem JSON:", error.message);
-  }
   } else {
-    thisProblem = {
-      "problem": "Create a function that checks if a given year is a leap year. A year is a leap year if: 1) It is divisible by 4; 2) However, if it is divisible by 100, it should also be divisible by 400 to be considered a leap year. The function should return a boolean value: true if the year is a leap year, and false otherwise.",
-      "testCases": [
-        {"case": "2000", "result": true},
-        {"case": "1900", "result": false},
-        {"case": "2024", "result": true},
-        {"case": "2019", "result": false},
-        {"case": "1600", "result": true}
-      ]
-    };
+    thisProblem = problem;
   }
+} catch (error) {
+  console.error("Error parsing problem JSON:", error.message);
+  thisProblem = null;
+}
+
+if (!thisProblem) {
+  thisProblem = {
+    "problem": "Create a function that checks if a given year is a leap year...",
+    "testCases": [
+      {"case": "2000", "result": true},
+      {"case": "1900", "result": false},
+      {"case": "2024", "result": true},
+      {"case": "2019", "result": false},
+      {"case": "1600", "result": true}
+    ]
+  };
+}
   //NOTE - Function to test user answer
   const testUserAnswer = async (e) => {
     e.preventDefault();
